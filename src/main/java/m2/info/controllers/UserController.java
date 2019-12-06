@@ -1,5 +1,6 @@
 package m2.info.controllers;
 
+import m2.info.exceptions.UnexpectedRoleException;
 import m2.info.services.user.IUserManagment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,11 +29,18 @@ public class UserController {
                           @RequestParam(value="userId") String userId,
                           @RequestParam(value="lastName") String lastName,
                           @RequestParam(value="firstName") String firstName,
-                          @RequestParam(value="role") Integer role)
-    {
+                          @RequestParam(value="role") Integer role) throws Exception {
 
-        if (role == TEACHER) userManager.addTeacher(userId, lastName, firstName);
-        else userManager.addStudent(userId, lastName, firstName);
+        switch (role) {
+            case TEACHER:
+                userManager.addTeacher(userId, lastName, firstName);
+                break;
+            case STUDENT:
+                userManager.addStudent(userId, lastName, firstName);
+                break;
+            default:
+                throw new UnexpectedRoleException();
+        }
 
         return display(model);
     }
