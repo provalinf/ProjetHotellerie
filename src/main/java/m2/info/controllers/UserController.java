@@ -1,7 +1,6 @@
 package m2.info.controllers;
 
-import m2.info.entities.User;
-import m2.info.services.IUserManagment;
+import m2.info.services.user.IUserManagment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +17,7 @@ public class UserController {
     @Autowired private IUserManagment userManager;
 
     @RequestMapping("/")
-    public String showPage(Model model) {
+    public String display(Model model) {
         model.addAttribute("students", userManager.getAllStudents());
         model.addAttribute("teachers", userManager.getAllTeachers());
         return "user_view";
@@ -35,7 +34,7 @@ public class UserController {
         if (role == TEACHER) userManager.addTeacher(userId, lastName, firstName);
         else userManager.addStudent(userId, lastName, firstName);
 
-        return showPage(model);
+        return display(model);
     }
 }
 

@@ -5,14 +5,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-
 <form method="get" action="add">
     <h1>Ajouter un nouvel utilisateur</h1>
-    <label for="userId">Identifiant *</label><input type="text" id="userId" name="userId"/>
+    <label for="userId">Identifiant *</label>
+    <input type="text" id="userId" name="userId" required="required"/>
     <br/>
-    <label for="lastName">Nom</label><input type="text" id="lastName" name="lastName"/>
+    <label for="lastName">Nom *</label>
+    <input type="text" id="lastName" name="lastName" required="required"/>
     <br/>
-    <label for="firstName">Prénom</label><input type="text" id="firstName" name="firstName"/>
+    <label for="firstName">Prénom *</label>
+    <input type="text" id="firstName" name="firstName" required="required"/>
     <br/>
     <p>Rôle :</p>
     <label for="teacherRole">Enseignant</label>
@@ -21,9 +23,7 @@
     <input type="radio" id="studentRole" value="2" name="role" checked="checked"/>
     <input type='submit' name="Ajouter"/>
 </form>
-
 <hr/>
-
 <table>
     <caption>Enseignants</caption>
     <thead>
@@ -41,9 +41,7 @@
     </tr>
     </tbody>
 </table>
-
 <hr/>
-
 <table>
     <caption>Etudiants</caption>
     <thead>
@@ -61,8 +59,6 @@
     </tr>
     </tbody>
 </table>
-
 <hr/>
-
 </body>
 </html>

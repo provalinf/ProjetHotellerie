@@ -1,4 +1,4 @@
-package m2.info.entities;
+package m2.info.entities.evaluation;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,8 +1,8 @@
-package m2.info.services;
+package m2.info.services.user;
 
-import m2.info.entities.Student;
-import m2.info.entities.Teacher;
-import m2.info.entities.User;
+import m2.info.entities.user.Student;
+import m2.info.entities.user.Teacher;
+import m2.info.entities.user.User;
 import m2.info.repositories.StudentRepository;
 import m2.info.repositories.TeacherRepository;
 import m2.info.repositories.UserRepository;
@@ -17,9 +17,7 @@ public class UserManagment implements IUserManagment {
 	@Autowired private UserRepository userRepository;
 
 	@Override
-	public Iterable<Student> getAllStudents() {
-		return studentRepository.findAll();
-	}
+	public Iterable<Student> getAllStudents() { return studentRepository.findAll(); }
 
 	@Override
 	public Iterable<Teacher> getAllTeachers() {

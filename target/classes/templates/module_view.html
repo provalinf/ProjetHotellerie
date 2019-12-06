@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
+<head lang="fr">
+    <title>Panneau module</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<form method="get" action="add">
+    <h1>Ajouter un nouveau modules</h1>
+    <label for="verboseName">Nom *</label>
+    <input type="text" id="verboseName" name="verboseName" required="required"/>
+    <br/>
+    <label for="label">Libellé *</label>
+    <input type="text" id="label" name="label" required="required"/>
+    <br/>
+    <label for="description">Description</label>
+    <textarea id="description" name="description" placeholder="Description du module..."></textarea>
+    <br/>
+    <input type='submit' name="Ajouter"/>
+</form>
+<hr/>
+<table>
+    <caption>Modules</caption>
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Libellé</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="prod: ${modules}">
+        <td th:text="${prod.verboseName}"></td>
+        <td th:text="${prod.label}"></td>
+        <td th:text="${prod.description}"></td>
+    </tr>
+    </tbody>
+</table>
+<hr/>
+</body>
+</html>

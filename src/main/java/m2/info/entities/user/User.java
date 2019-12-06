@@ -1,4 +1,4 @@
-package m2.info.entities;
+package m2.info.entities.user;
 
 import javax.persistence.*;
 

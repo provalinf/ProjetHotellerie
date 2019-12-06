@@ -1,8 +1,8 @@
-package m2.info.services;
+package m2.info.services.user;
 
-import m2.info.entities.Student;
-import m2.info.entities.Teacher;
-import m2.info.entities.User;
+import m2.info.entities.user.Student;
+import m2.info.entities.user.Teacher;
+import m2.info.entities.user.User;
 
 public interface IUserManagment {
 
