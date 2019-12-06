@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
+<head lang="fr">
+    <title>Panneau utilisateur</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<form method="get" action="add">
+    <h1>Ajouter un nouvel utilisateur</h1>
+    <label for="userId">Identifiant *</label><input type="text" id="userId" name="userId"/>
+    <br/>
+    <label for="lastName">Nom</label><input type="text" id="lastName" name="lastName"/>
+    <br/>
+    <label for="firstName">Prénom</label><input type="text" id="firstName" name="firstName"/>
+    <br/>
+    <p>Rôle :</p>
+    <label for="teacherRole">Enseignant</label>
+    <input type="radio" id="teacherRole" value="1" name="role"/>
+    <label for="studentRole">Etudiant</label>
+    <input type="radio" id="studentRole" value="2" name="role" checked="checked"/>
+    <input type='submit' name="Ajouter"/>
+</form>
+
+<hr/>
+
+<table>
+    <caption>Enseignants</caption>
+    <thead>
+    <tr>
+        <th>N° enseignant</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="prod: ${teachers}">
+        <td th:text="${prod.userId}"></td>
+        <td th:text="${prod.lastName}"></td>
+        <td th:text="${prod.firstName}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<hr/>
+
+<table>
+    <caption>Etudiants</caption>
+    <thead>
+    <tr>
+        <th>N° étudiant</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="prod: ${students}">
+        <td th:text="${prod.userId}"></td>
+        <td th:text="${prod.lastName}"></td>
+        <td th:text="${prod.firstName}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<hr/>
+
+</body>
+</html>
