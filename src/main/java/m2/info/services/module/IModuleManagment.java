@@ -1,6 +1,6 @@
 package m2.info.services.module;
 
-import m2.info.entities.Module;
+import m2.info.models.Module;
 
 public interface IModuleManagment {
 

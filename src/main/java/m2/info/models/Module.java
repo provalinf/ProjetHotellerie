@@ -1,17 +1,25 @@
-package m2.info.entities;
+package m2.info.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Module {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Id private long moduleId;
+    @Column(name = "id_module")
+    private long id;
+
+    @NotNull
+    @Column(name = "verbose_name", nullable = false, unique = true)
     private String verboseName;
+
+    @NotNull
+    @Column(name = "label", nullable = false)
     private String label;
+
+    @Column(name = "description")
     private String description;
 
     public Module() {}
@@ -22,7 +30,7 @@ public class Module {
         this.description = description;
     }
 
-    public long getModuleId() { return moduleId; }
+    public long getId() { return id; }
 
     public void setDescription(String description) { this.description = description; }
     public String getDescription() { return description; }

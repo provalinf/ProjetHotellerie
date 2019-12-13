@@ -7,20 +7,19 @@
 <body>
 <form method="get" action="add">
     <h1>Ajouter un nouvel utilisateur</h1>
-    <label for="userId">Identifiant *</label>
-    <input type="text" id="userId" name="userId" required="required"/>
+    <label for="id">Identifiant *</label>
+    <input type="text" id="id" name="id" required="required"/>
     <br/>
-    <label for="lastName">Nom *</label>
-    <input type="text" id="lastName" name="lastName" required="required"/>
+    <label for="lastname">Nom *</label>
+    <input type="text" id="lastname" name="lastname" required="required"/>
     <br/>
-    <label for="firstName">Prénom *</label>
-    <input type="text" id="firstName" name="firstName" required="required"/>
+    <label for="firstname">Prénom *</label>
+    <input type="text" id="firstname" name="firstname" required="required"/>
     <br/>
-    <p>Rôle :</p>
-    <label for="teacherRole">Enseignant</label>
-    <input type="radio" id="teacherRole" value="1" name="role"/>
-    <label for="studentRole">Etudiant</label>
-    <input type="radio" id="studentRole" value="2" name="role" checked="checked"/>
+    <label for="teacherAuth">Enseignant</label>
+    <input type="radio" id="teacherAuth" value="TEACHER" name="authority"/>
+    <label for="studentAuth">Etudiant</label>
+    <input type="radio" id="studentAuth" value="STUDENT" name="authority" checked="checked"/>
     <input type='submit' name="Ajouter"/>
 </form>
 <hr/>
@@ -35,9 +34,9 @@
     </thead>
     <tbody>
     <tr th:each="prod: ${teachers}">
-        <td th:text="${prod.userId}"></td>
-        <td th:text="${prod.lastName}"></td>
-        <td th:text="${prod.firstName}"></td>
+        <td th:text="${prod.id}"></td>
+        <td th:text="${prod.lastname}"></td>
+        <td th:text="${prod.firstname}"></td>
     </tr>
     </tbody>
 </table>
@@ -53,9 +52,9 @@
     </thead>
     <tbody>
     <tr th:each="prod: ${students}">
-        <td th:text="${prod.userId}"></td>
-        <td th:text="${prod.lastName}"></td>
-        <td th:text="${prod.firstName}"></td>
+        <td th:text="${prod.id}"></td>
+        <td th:text="${prod.lastname}"></td>
+        <td th:text="${prod.firstname}"></td>
     </tr>
     </tbody>
 </table>

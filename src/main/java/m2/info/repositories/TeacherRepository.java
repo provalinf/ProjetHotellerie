@@ -1,8 +1,6 @@
 package m2.info.repositories;
 
-import m2.info.entities.user.Teacher;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import m2.info.models.user.Teacher;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface TeacherRepository extends CrudRepository<Teacher, String> {}
+public interface TeacherRepository extends JpaRepository<Teacher, String> {}

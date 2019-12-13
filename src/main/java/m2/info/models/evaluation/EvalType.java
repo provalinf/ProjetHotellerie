@@ -1,4 +1,4 @@
-package m2.info.entities.evaluation;
+package m2.info.models.evaluation;
 
 public enum EvalType {
 
