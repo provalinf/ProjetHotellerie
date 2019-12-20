@@ -6,7 +6,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import javax.persistence.Entity;
 import java.util.Collection;
 
-@Entity
+@Entity (name = "teacher")
 public class Teacher extends User {
 
     public Teacher(){}

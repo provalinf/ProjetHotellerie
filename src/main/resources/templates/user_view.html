@@ -7,14 +7,14 @@
 <body>
 <form method="get" action="add">
     <h1>Ajouter un nouvel utilisateur</h1>
-    <label for="id">Identifiant *</label>
+    <label for="id">N° identifiant *</label>
     <input type="text" id="id" name="id" required="required"/>
     <br/>
     <label for="lastname">Nom *</label>
-    <input type="text" id="lastname" name="lastname" required="required"/>
+    <input type="text" id="lastname" name="lastname" maxlength="32" required="required"/>
     <br/>
     <label for="firstname">Prénom *</label>
-    <input type="text" id="firstname" name="firstname" required="required"/>
+    <input type="text" id="firstname" name="firstname" maxlength="32" required="required"/>
     <br/>
     <label for="teacherAuth">Enseignant</label>
     <input type="radio" id="teacherAuth" value="TEACHER" name="authority"/>

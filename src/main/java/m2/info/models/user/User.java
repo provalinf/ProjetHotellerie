@@ -6,12 +6,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity
+@Entity (name = "user")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User implements UserDetails {
 
     @NotNull
-    @Column(name = "id")
+    @Column(name = "id_user")
     @Id protected String id;
 
     @NotNull
@@ -35,11 +35,11 @@ public abstract class User implements UserDetails {
     protected boolean enabled;
 
     @NotNull
-    @Column(name = "lastname", nullable = false)
+    @Column(name = "lastname", nullable = false, length = 32)
     protected String lastname;
 
     @NotNull
-    @Column(name = "firstname", nullable = false)
+    @Column(name = "firstname", nullable = false, length = 32)
     protected String firstname;
 
     public User() {}

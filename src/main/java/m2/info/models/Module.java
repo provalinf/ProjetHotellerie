@@ -3,13 +3,12 @@ package m2.info.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity
+@Entity(name = "module")
 public class Module {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_module")
-    private long id;
+    @Id private long id;
 
     @NotNull
     @Column(name = "verbose_name", nullable = false, unique = true)
