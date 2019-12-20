@@ -1,4 +1,4 @@
-package m2.info.controllers.admin;
+package m2.info.controllers;
 
 import m2.info.models.user.Authorities;
 import m2.info.services.module.IModuleManagment;
@@ -17,7 +17,7 @@ public class AdminController {
     @Autowired private IModuleManagment moduleManager;
 
     @RequestMapping("/")
-    public String displayAdminPanel(Model model) { return "admin"; }
+    public String displayAdminPanel() { return "admin"; }
 
     @RequestMapping("users/")
     public String displayUser(Model model) {

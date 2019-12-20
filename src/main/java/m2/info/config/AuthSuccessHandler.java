@@ -30,7 +30,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         String targetUrl = determineTargetUrl(authentication);
 
         if (response.isCommitted()) {
-            logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
+            logger.debug("Une réponse a déjà été envoyée. Redirection vers " + targetUrl + " impossible.");
             return;
         }
         redirectStrategy.sendRedirect(request, response, targetUrl);
