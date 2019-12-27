@@ -22,7 +22,8 @@ public class Module {
     @Column(name = "label", nullable = false)
     private String label;
 
-    @Column(name = "description")
+    @NotNull
+    @Column(name = "description", nullable = false)
     private String description;
 
     @ManyToMany(mappedBy="modules")
@@ -52,4 +53,8 @@ public class Module {
 
     public Set<User> getUsers() { return users; }
     public void setUsers(Set<User> users) { this.users = users; }
+
+    public Set<Evaluation> getEvaluations() { return evaluations; }
+
+    public void setEvaluations(Set<Evaluation> evaluations) { this.evaluations = evaluations; }
 }

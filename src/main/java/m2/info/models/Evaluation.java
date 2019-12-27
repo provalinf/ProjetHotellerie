@@ -79,4 +79,9 @@ public class Evaluation {
     public void setComment(String comment) { this.comment = comment; }
     public String getComment() { return comment; }
 
+    public void setAuthor(Student author) { this.author = author; }
+    public Student getAuthor() { return author; }
+
+    public void setModule(Module module) { this.module = module; }
+    public Module getModule() { return module; }
 }

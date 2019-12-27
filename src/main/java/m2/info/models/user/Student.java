@@ -26,5 +26,8 @@ public class Student extends User {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return AuthorityUtils.createAuthorityList((Authorities.STUDENT.name()));
     }
+
+    public Set<Evaluation> getEvaluations() { return evaluations; }
+    public void setEvaluations(Set<Evaluation> evaluations) { this.evaluations = evaluations; }
 }
 
