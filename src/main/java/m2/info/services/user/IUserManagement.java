@@ -9,8 +9,10 @@ public interface IUserManagement extends UserDetailsService {
 
     Iterable<User> getAllUsers();
     void addStudent(String id, String username, String password, String firstname, String lastname);
-    void addTeacher(String id, String username, String password, String firstname, String lastname);
+    Student getStudent(String id);
     Iterable<Student> getAllStudents();
+    void addTeacher(String id, String username, String password, String firstname, String lastname);
+    Teacher getTeacher(String id);
     Iterable<Teacher> getAllTeachers();
 
 }

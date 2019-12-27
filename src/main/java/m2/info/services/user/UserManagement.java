@@ -25,8 +25,21 @@ public class UserManagement implements IUserManagement {
     }
 
     @Override
+    public Iterable<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
     public void addStudent(String id, String username, String password, String firstname, String lastname) {
         studentRepository.save(new Student(id, username, password, firstname, lastname));
+    }
+
+    @Override
+    public Student getStudent(String id) { return studentRepository.findOne(id); }
+
+    @Override
+    public Iterable<Student> getAllStudents() {
+        return studentRepository.findAll();
     }
 
     @Override
@@ -35,17 +48,11 @@ public class UserManagement implements IUserManagement {
     }
 
     @Override
-    public Iterable<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    @Override
-    public Iterable<Student> getAllStudents() {
-        return studentRepository.findAll();
-    }
+    public Teacher getTeacher(String id) { return teacherRepository.findOne(id); }
 
     @Override
     public Iterable<Teacher> getAllTeachers() {
         return teacherRepository.findAll();
     }
+
 }

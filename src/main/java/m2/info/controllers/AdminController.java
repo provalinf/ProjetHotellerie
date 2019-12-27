@@ -6,8 +6,7 @@ import m2.info.services.user.IUserManagement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("admin/")
@@ -16,17 +15,17 @@ public class AdminController {
     @Autowired private IUserManagement userManager;
     @Autowired private IModuleManagment moduleManager;
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String displayAdminPanel() { return "admin"; }
 
-    @RequestMapping("users/")
-    public String displayUser(Model model) {
+    @GetMapping("users")
+    public String displayUsers(Model model) {
         model.addAttribute("students", userManager.getAllStudents());
         model.addAttribute("teachers", userManager.getAllTeachers());
-        return "user_view";
+        return "users_view";
     }
 
-    @RequestMapping("users/add")
+    @PostMapping("users/add")
     public String addUser(Model model,
                           @RequestParam(value="id") String id,
                           @RequestParam(value="lastname") String lastname,
@@ -42,22 +41,40 @@ public class AdminController {
                     userManager.addTeacher(id, username, "mdp_" + username, lastname, firstname);
                 else throw new IllegalStateException();
 
-        return displayUser(model);
+        return displayUsers(model);
     }
 
-    @RequestMapping("modules/")
-    public String displayModule(Model model) {
+    @GetMapping("student/{userId}")
+    public String displayStudent(Model model, @PathVariable String userId) {
+        model.addAttribute("student", userManager.getStudent(userId));
+        return "student_view";
+    }
+
+    @GetMapping("teacher/{userId}")
+    public String displayTeacher(Model model, @PathVariable String userId) {
+        model.addAttribute("teacher", userManager.getTeacher(userId));
+        return "teacher_view";
+    }
+
+    @GetMapping("modules")
+    public String displayModules(Model model) {
         model.addAttribute("modules", moduleManager.getAllModules());
         return "module_view";
     }
 
-    @RequestMapping("modules/add")
+    @GetMapping("module/{moduleId}")
+    public String displayModule(Model model, @PathVariable String moduleId) {
+        model.addAttribute("module", moduleManager.getModule(moduleId));
+        return "";
+    }
+
+    @PostMapping("modules/add")
     public String addModule(Model model,
                             @RequestParam(value="verboseName") String verboseName,
                             @RequestParam(value="label") String label,
                             @RequestParam(value="description") String description) {
 
         moduleManager.addModule(verboseName, label, description);
-        return displayModule(model);
+        return displayModules(model);
     }
 }

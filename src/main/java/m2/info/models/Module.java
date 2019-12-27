@@ -1,7 +1,11 @@
 package m2.info.models;
 
+import m2.info.models.user.User;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "module")
 public class Module {
@@ -21,6 +25,12 @@ public class Module {
     @Column(name = "description")
     private String description;
 
+    @ManyToMany(mappedBy="modules")
+    private Set<User> users = new HashSet<>();
+
+    @OneToMany(mappedBy="module")
+    private Set<Evaluation> evaluations = new HashSet<>();
+
     public Module() {}
 
     public Module(String verboseName, String label, String description) {
@@ -31,12 +41,15 @@ public class Module {
 
     public long getId() { return id; }
 
-    public void setDescription(String description) { this.description = description; }
     public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setLabel(String label) { this.label = label; }
     public String getLabel() { return label; }
+    public void setLabel(String label) { this.label = label; }
 
-    public void setVerboseName(String verboseName) { this.verboseName = verboseName; }
     public String getVerboseName() { return verboseName; }
+    public void setVerboseName(String verboseName) { this.verboseName = verboseName; }
+
+    public Set<User> getUsers() { return users; }
+    public void setUsers(Set<User> users) { this.users = users; }
 }

@@ -19,4 +19,9 @@ public class ModuleManagment implements IModuleManagment {
 	public Module addModule(String verboseName, String label, String description) {
 		return moduleRepository.save(new Module(verboseName, label, description));
 	}
+
+	@Override
+	public Module getModule(String id) {
+		return moduleRepository.findOne(id);
+	}
 }

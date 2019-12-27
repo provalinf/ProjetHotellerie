@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<form method="get" action="add">
+<form method="POST" action="add">
     <h1>Ajouter un nouvel utilisateur</h1>
     <label for="id">N° identifiant *</label>
     <input type="text" id="id" name="id" required="required"/>
@@ -34,7 +34,7 @@
     </thead>
     <tbody>
     <tr th:each="prod: ${teachers}">
-        <td th:text="${prod.id}"></td>
+        <td><a th:text="${prod.id}" th:href="@{../../admin/teacher/} + ${prod.id}"></a></td>
         <td th:text="${prod.lastname}"></td>
         <td th:text="${prod.firstname}"></td>
     </tr>
@@ -52,7 +52,7 @@
     </thead>
     <tbody>
     <tr th:each="prod: ${students}">
-        <td th:text="${prod.id}"></td>
+        <td th:href="@{../../admin/student/} + prod.id}"></td>
         <td th:text="${prod.lastname}"></td>
         <td th:text="${prod.firstname}"></td>
     </tr>
