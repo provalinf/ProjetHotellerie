@@ -16,16 +16,16 @@ public class AdminController {
     @Autowired private IModuleManagment moduleManager;
 
     @GetMapping("/")
-    public String displayAdminPanel() { return "admin"; }
+    public String displayAdminPanel() { return "admin/home"; }
 
     @GetMapping("users")
     public String displayUsers(Model model) {
         model.addAttribute("students", userManager.getAllStudents());
         model.addAttribute("teachers", userManager.getAllTeachers());
-        return "users_view";
+        return "admin/users";
     }
 
-    @PostMapping("users/add")
+    @PostMapping("users")
     public String addUser(Model model,
                           @RequestParam(value="id") String id,
                           @RequestParam(value="lastname") String lastname,
@@ -47,25 +47,25 @@ public class AdminController {
     @GetMapping("student/{userId}")
     public String displayStudent(Model model, @PathVariable String userId) {
         model.addAttribute("student", userManager.getStudent(userId));
-        return "student_view";
+        return "admin/student";
     }
 
     @GetMapping("teacher/{userId}")
     public String displayTeacher(Model model, @PathVariable String userId) {
         model.addAttribute("teacher", userManager.getTeacher(userId));
-        return "teacher_view";
+        return "admin/teacher";
     }
 
     @GetMapping("modules")
     public String displayModules(Model model) {
         model.addAttribute("modules", moduleManager.getAllModules());
-        return "module_view";
+        return "admin/modules";
     }
 
     @GetMapping("module/{moduleId}")
     public String displayModule(Model model, @PathVariable String moduleId) {
         model.addAttribute("module", moduleManager.getModule(moduleId));
-        return "";
+        return "admin/module";
     }
 
     @PostMapping("modules/add")
