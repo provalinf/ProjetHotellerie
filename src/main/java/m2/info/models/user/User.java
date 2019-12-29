@@ -102,6 +102,7 @@ public abstract class User implements UserDetails {
     public String getFirstname() { return firstname; }
     public void setFirstname(String firstname) { this.firstname = firstname; }
 
+    public void addModule(Module module) { modules.add(module); }
     public Set<Module> getModules() { return modules; }
     public void setModules(Set<Module> modules) { this.modules = modules; }
 }

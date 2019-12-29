@@ -16,12 +16,12 @@ public class ModuleManagment implements IModuleManagment {
 	}
 
 	@Override
-	public Module addModule(String verboseName, String label, String description) {
-		return moduleRepository.save(new Module(verboseName, label, description));
+	public Module addModule(Module module) {
+		return moduleRepository.save(module);
 	}
 
 	@Override
-	public Module getModule(String id) {
+	public Module getModule(Long id) {
 		return moduleRepository.findOne(id);
 	}
 }

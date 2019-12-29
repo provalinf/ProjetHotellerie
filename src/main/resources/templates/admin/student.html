@@ -5,5 +5,28 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+<form method="POST" action="">
+    <h1>Lier module</h1>
+    <select name="module">
+        <option th:each="module: ${modules}" th:value="${module.id}" th:text="${module.label} + ' - ' + ${module.verboseName}"></option>
+    </select>
+    <br/>
+    <input type='submit' name="Lier"/>
+</form>
+<hr/>
+<table>
+    <caption>Est inscrit dans</caption>
+    <thead>
+    <tr>
+        <th>Nom</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="module: ${linked_modules}">
+        <td th:text="${module.verboseName}"></td>
+    </tr>
+    </tbody>
+</table>
+<hr/>
 </body>
 </html>

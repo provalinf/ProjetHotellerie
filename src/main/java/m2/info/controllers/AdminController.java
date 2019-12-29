@@ -1,6 +1,9 @@
 package m2.info.controllers;
 
+import m2.info.models.Module;
 import m2.info.models.user.Authorities;
+import m2.info.models.user.Student;
+import m2.info.models.user.Teacher;
 import m2.info.services.module.IModuleManagment;
 import m2.info.services.user.IUserManagement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +39,9 @@ public class AdminController {
         final String username = firstname.charAt(0) + lastname.substring(0, endIndex);
 
         if (authority.equals(Authorities.STUDENT.name()))
-            userManager.addStudent(id, username, "mdp_" + username, lastname, firstname);
+            userManager.addStudent(new Student(id, username, "mdp_" + username, lastname, firstname));
         else    if (authority.equals(Authorities.TEACHER.name()))
-                    userManager.addTeacher(id, username, "mdp_" + username, lastname, firstname);
+                    userManager.addTeacher(new Teacher(id, username, "mdp_" + username, lastname, firstname));
                 else throw new IllegalStateException();
 
         return displayUsers(model);
@@ -46,14 +49,40 @@ public class AdminController {
 
     @GetMapping("student/{userId}")
     public String displayStudent(Model model, @PathVariable String userId) {
-        model.addAttribute("student", userManager.getStudent(userId));
+        Student student = userManager.getStudent(userId);
+        model.addAttribute("modules", moduleManager.getAllModules());
+        model.addAttribute("student", student);
+        model.addAttribute("linked_modules", student.getModules());
         return "admin/student";
+    }
+
+    @PostMapping("student/{userId}")
+    public String addStudentModule(Model model,
+                                   @PathVariable String userId,
+                                   @RequestParam(value="module") Integer idModule) {
+        Student student = userManager.getStudent(userId);
+        student.addModule(moduleManager.getModule(idModule.longValue()));
+        userManager.updateStudent(userId, student);
+        return displayStudent(model, userId);
     }
 
     @GetMapping("teacher/{userId}")
     public String displayTeacher(Model model, @PathVariable String userId) {
-        model.addAttribute("teacher", userManager.getTeacher(userId));
+        Teacher teacher = userManager.getTeacher(userId);
+        model.addAttribute("modules", moduleManager.getAllModules());
+        model.addAttribute("teacher", teacher);
+        model.addAttribute("linked_modules", teacher.getModules());
         return "admin/teacher";
+    }
+
+    @PostMapping("teacher/{userId}")
+    public String addTeachertModule(Model model,
+                                   @PathVariable String userId,
+                                   @RequestParam(value="module") Integer idModule) {
+        Teacher teacher = userManager.getTeacher(userId);
+        teacher.addModule(moduleManager.getModule(idModule.longValue()));
+        userManager.updateTeacher(userId, teacher);
+        return displayTeacher(model, userId);
     }
 
     @GetMapping("modules")
@@ -63,18 +92,18 @@ public class AdminController {
     }
 
     @GetMapping("module/{moduleId}")
-    public String displayModule(Model model, @PathVariable String moduleId) {
-        model.addAttribute("module", moduleManager.getModule(moduleId));
+    public String displayModule(Model model, @PathVariable Integer moduleId) {
+        model.addAttribute("module", moduleManager.getModule(moduleId.longValue()));
         return "admin/module";
     }
 
-    @PostMapping("modules/add")
+    @PostMapping("modules")
     public String addModule(Model model,
                             @RequestParam(value="verboseName") String verboseName,
                             @RequestParam(value="label") String label,
                             @RequestParam(value="description") String description) {
 
-        moduleManager.addModule(verboseName, label, description);
+        moduleManager.addModule(new Module(verboseName, label, description));
         return displayModules(model);
     }
 }

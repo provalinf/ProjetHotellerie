@@ -30,8 +30,30 @@ public class UserManagement implements IUserManagement {
     }
 
     @Override
-    public void addStudent(String id, String username, String password, String firstname, String lastname) {
-        studentRepository.save(new Student(id, username, password, firstname, lastname));
+    public boolean addStudent(Student student) {
+        if (!studentRepository.exists(student.getId())) {
+            studentRepository.save(student);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateStudent(String id, Student student) {
+        if (deleteStudent(id)) {
+            addStudent(student);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteStudent(String id) {
+        if (studentRepository.exists(id)) {
+            studentRepository.delete(id);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -43,8 +65,30 @@ public class UserManagement implements IUserManagement {
     }
 
     @Override
-    public void addTeacher(String id, String username, String password, String firstname, String lastname) {
-        teacherRepository.save(new Teacher(id, username, password, firstname, lastname));
+    public boolean addTeacher(Teacher teacher) {
+        if (!teacherRepository.exists(teacher.getId())) {
+            teacherRepository.save(teacher);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateTeacher(String id, Teacher teacher) {
+        if (deleteTeacher(id)) {
+            addTeacher(teacher);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteTeacher(String id) {
+        if (teacherRepository.exists(id)) {
+            teacherRepository.delete(id);
+            return true;
+        }
+        return false;
     }
 
     @Override
