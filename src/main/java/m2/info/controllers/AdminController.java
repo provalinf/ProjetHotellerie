@@ -19,7 +19,7 @@ public class AdminController {
     @Autowired private IModuleManagment moduleManager;
 
     @GetMapping("/")
-    public String displayAdminPanel() { return "admin/home"; }
+    public String home() { return "admin/home"; }
 
     @GetMapping("users")
     public String displayUsers(Model model) {

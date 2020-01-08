@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
+<head lang="fr">
+    <title>Teacher</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<table>
+    <caption>Modules que vous enseignez</caption>
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Libellé</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="module: ${modules}">
+        <td th:text="${module.verboseName}"></td>
+        <td th:text="${module.label}"></td>
+        <td th:text="${module.description}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
