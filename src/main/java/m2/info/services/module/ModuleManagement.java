@@ -6,22 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ModuleManagment implements IModuleManagment {
+public class ModuleManagement implements IModuleManagement {
 
-	@Autowired private ModuleRepository moduleRepository;
+	@Autowired private ModuleRepository repository;
 
 	@Override
 	public Iterable<Module> getAllModules() {
-		return moduleRepository.findAll();
+		return repository.findAll();
 	}
 
 	@Override
 	public Module addModule(Module module) {
-		return moduleRepository.save(module);
+		return repository.save(module);
 	}
 
 	@Override
 	public Module getModule(Long id) {
-		return moduleRepository.findOne(id);
+		return repository.findOne(id);
 	}
 }

@@ -25,11 +25,6 @@ public class UserManagement implements IUserManagement {
     }
 
     @Override
-    public Iterable<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    @Override
     public boolean addStudent(Student student) {
         if (!studentRepository.exists(student.getId())) {
             studentRepository.save(student);

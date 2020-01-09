@@ -1,5 +1,6 @@
 package m2.info.models;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import m2.info.models.user.Student;
 
 import javax.persistence.*;
@@ -50,6 +51,21 @@ public class Evaluation {
     @ManyToOne
     @JoinColumn(name="module")
     private Module module;
+
+    public Evaluation(){}
+    public Evaluation(short consistency, short documentation, short lecture, short personalInterest,
+                      short practicalWork, short tutorial, short workload, String comment, Student author, Module module){
+        this.consistency = consistency;
+        this.documentation = documentation;
+        this.lecture = lecture;
+        this.personalInterest = personalInterest;
+        this.practicalWork = practicalWork;
+        this.tutorial = tutorial;
+        this.workload = workload;
+        this.comment = comment;
+        this.author = author;
+        this.module = module;
+    }
 
     public long getId() { return id; }
 

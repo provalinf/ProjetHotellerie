@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface IUserManagement extends UserDetailsService {
 
-    Iterable<User> getAllUsers();
     boolean addStudent(Student student);
     boolean updateStudent(String id, Student student);
     boolean deleteStudent(String id);

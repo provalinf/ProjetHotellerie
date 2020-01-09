@@ -7,74 +7,79 @@
 <body>
 <form method="POST" action="">
     <h1>Evaluer un module</h1>
+    <label for="module">Module</label>
+    <select id="module" name="module">
+        <option th:each="module: ${modules}" th:value="${module.id}" th:text="${module.label} + ' - ' + ${module.verboseName}"></option>
+    </select>
+    <br/>
     <label for="consistency">Cohérence CM/TD/TP</label>
     <select id="consistency" name="consistency" size="1">
-        <option selected>0</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
+        <option value="0" selected="selected">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
     </select>
     <br/>
     <label for="documentation">Documentation</label>
     <select id="documentation" name="documentation" size="1">
-        <option selected>0</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
+        <option value="0" selected="selected">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
     </select>
     <br/>
     <label for="lecture">Cours Magistraux</label>
     <select id="lecture" name="lecture" size="1">
-        <option selected>0</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
+        <option value="0" selected="selected">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
     </select>
     <br/>
     <label for="personnalInterest">Interêt personnel</label>
     <select id="personnalInterest" name="personnalInterest" size="1">
-        <option selected>0</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
+        <option value="0" selected="selected">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
     </select>
     <br/>
     <label for="practicalWork">Travaux Pratiques</label>
     <select id="practicalWork" name="practicalWork" size="1">
-        <option selected>0</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
+        <option value="0" selected="selected">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
     </select>
     <br/>
     <label for="tutorial">Travaux Dirigés</label>
     <select id="tutorial" name="tutorial" size="1">
-        <option selected>0</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
+        <option value="0" selected="selected">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
     </select>
     <br/>
     <label for="workload">Charge de travail</label>
     <select id="workload" name="workload" size="1">
-        <option selected>0</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
+        <option value="0" selected="selected">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
     </select>
     <br/>
     <label for="comment">Commentaire</label>
@@ -84,19 +89,13 @@
 </form>
 <hr/>
 <table>
-    <caption>Modules évalués</caption>
+    <caption>Evaluations</caption>
     <thead>
     <tr>
-        <th>Nom</th>
-        <th>Libellé</th>
-        <th>Description</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="module: ${modules}">
-        <td><a th:text="${module.verboseName}" th:href="@{evaluation/} + ${module.id}"></a></td>
-        <td th:text="${module.label}"></td>
-        <td th:text="${module.description}"></td>
+    <tr th:each="eval: ${evals}">
     </tr>
     </tbody>
 </table>

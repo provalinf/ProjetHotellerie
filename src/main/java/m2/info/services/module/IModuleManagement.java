@@ -2,7 +2,7 @@ package m2.info.services.module;
 
 import m2.info.models.Module;
 
-public interface IModuleManagment {
+public interface IModuleManagement {
 
 	Iterable<Module> getAllModules();
 	Module addModule(Module module);

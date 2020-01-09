@@ -4,22 +4,19 @@ import m2.info.models.Module;
 import m2.info.models.user.Authorities;
 import m2.info.models.user.Student;
 import m2.info.models.user.Teacher;
-import m2.info.services.module.IModuleManagment;
+import m2.info.services.module.IModuleManagement;
 import m2.info.services.user.IUserManagement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotNull;
-import java.text.Normalizer;
-
 @Controller
 @RequestMapping("admin/")
 public class AdminController {
 
     @Autowired private IUserManagement userManager;
-    @Autowired private IModuleManagment moduleManager;
+    @Autowired private IModuleManagement moduleManager;
 
     @GetMapping("/")
     public String home() { return "admin/home"; }
