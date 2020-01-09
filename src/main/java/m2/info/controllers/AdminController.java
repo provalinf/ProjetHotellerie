@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
+import java.text.Normalizer;
+
 @Controller
 @RequestMapping("admin/")
 public class AdminController {
@@ -36,7 +39,8 @@ public class AdminController {
                           @RequestParam(value="authority") String authority) {
 
         final int endIndex = (lastname.length() < 8) ? lastname.length() : 7;
-        final String username = firstname.charAt(0) + lastname.substring(0, endIndex);
+        String username = firstname.charAt(0) + lastname.substring(0, endIndex);
+        username = normalize(username);
 
         if (authority.equals(Authorities.STUDENT.name()))
             userManager.addStudent(new Student(id, username, "mdp_" + username, lastname, firstname));
@@ -105,5 +109,13 @@ public class AdminController {
 
         moduleManager.addModule(new Module(verboseName, label, description));
         return displayModules(model);
+    }
+
+    private String normalize(String s) {
+            s = s.toLowerCase();
+            s = s.replaceAll("à", "a");
+            s = s.replaceAll("[éèêë]", "e");
+            s = s.replaceAll("-", "");
+            return s;
     }
 }
