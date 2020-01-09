@@ -4,8 +4,6 @@ import m2.info.models.user.Student;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity (name = "evaluation")
 public class Evaluation {

@@ -5,8 +5,86 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+<form method="POST" action="">
+    <h1>Evaluer un module</h1>
+    <label for="consistency">Cohérence CM/TD/TP</label>
+    <select id="consistency" name="consistency" size="1">
+        <option selected>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+    <br/>
+    <label for="documentation">Documentation</label>
+    <select id="documentation" name="documentation" size="1">
+        <option selected>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+    <br/>
+    <label for="lecture">Cours Magistraux</label>
+    <select id="lecture" name="lecture" size="1">
+        <option selected>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+    <br/>
+    <label for="personnalInterest">Interêt personnel</label>
+    <select id="personnalInterest" name="personnalInterest" size="1">
+        <option selected>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+    <br/>
+    <label for="practicalWork">Travaux Pratiques</label>
+    <select id="practicalWork" name="practicalWork" size="1">
+        <option selected>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+    <br/>
+    <label for="tutorial">Travaux Dirigés</label>
+    <select id="tutorial" name="tutorial" size="1">
+        <option selected>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+    <br/>
+    <label for="workload">Charge de travail</label>
+    <select id="workload" name="workload" size="1">
+        <option selected>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+    <br/>
+    <label for="comment">Commentaire</label>
+    <textarea id="comment" name="comment" placeholder="Commentaire à propos du module..."></textarea>
+    <br/>
+    <input type='submit' name="Evaluer"/>
+</form>
+<hr/>
 <table>
-    <caption>Modules auxquels vous êtes inscrit</caption>
+    <caption>Modules évalués</caption>
     <thead>
     <tr>
         <th>Nom</th>
@@ -16,11 +94,12 @@
     </thead>
     <tbody>
     <tr th:each="module: ${modules}">
-        <td th:text="${module.verboseName}"></td>
+        <td><a th:text="${module.verboseName}" th:href="@{evaluation/} + ${module.id}"></a></td>
         <td th:text="${module.label}"></td>
         <td th:text="${module.description}"></td>
     </tr>
     </tbody>
 </table>
+<hr/>
 </body>
 </html>
