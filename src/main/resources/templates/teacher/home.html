@@ -16,9 +16,9 @@
     </thead>
     <tbody>
     <tr th:each="module: ${modules}">
-        <td th:text="${module.verboseName}"></td>
-        <td th:text="${module.label}"></td>
-        <td th:text="${module.description}"></td>
+        <td th:text="*{verboseName}"></td>
+        <td th:text="*{label}"></td>
+        <td th:text="*{description}"></td>
     </tr>
     </tbody>
 </table>

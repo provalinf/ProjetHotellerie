@@ -34,9 +34,9 @@
     </thead>
     <tbody>
     <tr th:each="teacher: ${teachers}">
-        <td><a th:text="${teacher.id}" th:href="@{../../admin/teacher/} + ${teacher.id}"></a></td>
-        <td th:text="${teacher.lastname}"></td>
-        <td th:text="${teacher.firstname}"></td>
+        <td><a th:text="*{id}" th:href="@{../../admin/teacher/} + *{id}"></a></td>
+        <td th:text="*{lastname}"></td>
+        <td th:text="*{firstname}"></td>
     </tr>
     </tbody>
 </table>
@@ -52,9 +52,9 @@
     </thead>
     <tbody>
     <tr th:each="student: ${students}">
-        <td><a th:text="${student.id}" th:href="@{../../admin/student/} + ${student.id}"></a></td>
-        <td th:text="${student.lastname}"></td>
-        <td th:text="${student.firstname}"></td>
+        <td><a th:text="*{id}" th:href="@{../../admin/student/} + *{id}"></a></td>
+        <td th:text="*{lastname}"></td>
+        <td th:text="*{firstname}"></td>
     </tr>
     </tbody>
 </table>

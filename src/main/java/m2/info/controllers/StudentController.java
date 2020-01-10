@@ -5,10 +5,7 @@ import m2.info.models.Module;
 import m2.info.models.user.Student;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Set;
@@ -46,6 +43,12 @@ public class StudentController extends UserController {
         evalManager.addEvaluation(eval);
 
         return home(request, model);
+    }
+
+    @GetMapping("evaluation/{evalId}")
+    public String displayEval(Model model, @PathVariable long evalId) {
+        model.addAttribute("module", evalManager.getEvaluation(evalId));
+        return "eval";
     }
 
     private Set<Module> getNonEvaluatedModules(Student student) {

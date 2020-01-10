@@ -8,7 +8,7 @@
 <form method="POST" action="">
     <h1>Lier module</h1>
     <select name="module">
-        <option th:each="module: ${modules}" th:value="${module.id}" th:text="${module.label} + ' - ' + ${module.verboseName}"></option>
+        <option th:each="module: ${modules}" th:value="*{id}" th:text="*{label} + ' - ' + *{verboseName}"></option>
     </select>
     <br/>
     <input type='submit' name="Lier"/>
@@ -23,7 +23,7 @@
     </thead>
     <tbody>
     <tr th:each="module: ${linked_modules}">
-        <td th:text="${module.verboseName}"></td>
+        <td th:text="*{verboseName}"></td>
     </tr>
     </tbody>
 </table>

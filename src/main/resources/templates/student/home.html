@@ -9,7 +9,7 @@
     <h1>Evaluer un module</h1>
     <label for="module">Module</label>
     <select id="module" name="module">
-        <option th:each="module: ${modules}" th:value="${module.id}" th:text="${module.label} + ' - ' + ${module.verboseName}"></option>
+        <option th:each="module: ${modules}" th:value="*{id}" th:text="*{label} + ' - ' + *{verboseName}"></option>
     </select>
     <br/>
     <label for="consistency">Cohérence CM/TD/TP</label>
@@ -91,11 +91,10 @@
 <table>
     <caption>Evaluations</caption>
     <thead>
-    <tr>
-    </tr>
     </thead>
     <tbody>
     <tr th:each="eval: ${evals}">
+        <td th:object="${eval.module}"><a th:text="*{label} + ' - ' + *{verboseName}" th:href="@{evaluation/} + ${eval.id}"></a></td>
     </tr>
     </tbody>
 </table>
