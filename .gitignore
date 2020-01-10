@@ -1,3 +1,4 @@
 target
 .idea
 *.class
+.idea/inspectionProfiles/Project_Default.xml

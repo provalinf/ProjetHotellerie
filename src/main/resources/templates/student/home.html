@@ -9,16 +9,16 @@
     <h1>Evaluer un module</h1>
     <label for="module">Module</label>
     <select id="module" name="module">
-        <option th:each="module: ${modules}" th:object="${module}" th:value="*{id}" th:text="*{label} + ' - ' + *{verboseName}"></option>
+        <option th:each="module:${modules}" th:object="${module}" th:value="*{id}" th:text="*{label} + ' - ' + *{verboseName}"></option>
     </select>
     <br/>
-    <div th:replace="/frags/select_mark::select_mark(consistency, 'Cohérence CM/TD/TP')"></div>
-    <div th:replace="/frags/select_mark::select_mark(documentation, Documentation)"></div>
-    <div th:replace="/frags/select_mark::select_mark(lecture, 'Cours Magistraux')"></div>
-    <div th:replace="/frags/select_mark::select_mark(personnalInterest, 'Interêt personnel')"></div>
-    <div th:replace="/frags/select_mark::select_mark(practicalWork, 'Travaux Pratiques')"></div>
-    <div th:replace="/frags/select_mark::select_mark(tutorial, 'Travaux Dirigés')"></div>
-    <div th:replace="/frags/select_mark::select_mark(workload, 'Charge de travail')"></div>
+    <div th:replace="/frags/select_mark::select_mark(consistency, 'Cohérence CM/TD/TP', 0)"></div>
+    <div th:replace="/frags/select_mark::select_mark(documentation, Documentation, 0)"></div>
+    <div th:replace="/frags/select_mark::select_mark(lecture, 'Cours Magistraux', 0)"></div>
+    <div th:replace="/frags/select_mark::select_mark(personalInterest, 'Interêt personnel', 0)"></div>
+    <div th:replace="/frags/select_mark::select_mark(practicalWork, 'Travaux Pratiques', 0)"></div>
+    <div th:replace="/frags/select_mark::select_mark(tutorial, 'Travaux Dirigés', 0)"></div>
+    <div th:replace="/frags/select_mark::select_mark(workload, 'Charge de travail', 0)"></div>
     <label for="comment">Commentaire</label>
     <textarea id="comment" name="comment" placeholder="Commentaire à propos du module..."></textarea>
     <br/>

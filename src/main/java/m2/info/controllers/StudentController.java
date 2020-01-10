@@ -31,7 +31,7 @@ public class StudentController extends UserController {
                           @RequestParam(value="consistency") short consistency,
                           @RequestParam(value="documentation") short documentation,
                           @RequestParam(value="lecture") short lecture,
-                          @RequestParam(value="personnalInterest") short personnalInterest,
+                          @RequestParam(value="personalInterest") short personalInterest,
                           @RequestParam(value="practicalWork") short practicalWork,
                           @RequestParam(value="tutorial") short tutorial,
                           @RequestParam(value="workload") short workload,
@@ -39,7 +39,7 @@ public class StudentController extends UserController {
 
         Student student = userManager.getStudent(getIdUser(request));
         Module module = moduleManager.getModule(moduleId);
-        Evaluation eval = new Evaluation(consistency, documentation, lecture, personnalInterest, practicalWork, tutorial, workload, comment, student, module);
+        Evaluation eval = new Evaluation(consistency, documentation, lecture, personalInterest, practicalWork, tutorial, workload, comment, student, module);
         evalManager.addEvaluation(eval);
 
         return home(request, model);
@@ -47,8 +47,33 @@ public class StudentController extends UserController {
 
     @GetMapping("evaluation/{evalId}")
     public String displayEval(Model model, @PathVariable long evalId) {
-        model.addAttribute("module", evalManager.getEvaluation(evalId));
-        return "eval";
+        Evaluation eval = evalManager.getEvaluation(evalId);
+        model.addAttribute("module", eval.getModule());
+        model.addAttribute("eval", eval);
+        return "student/eval";
+    }
+
+    @PostMapping("evaluation/{evalId}")
+    public String updateEval(Model model, @PathVariable long evalId,
+                            @RequestParam(value="consistency") short consistency,
+                            @RequestParam(value="documentation") short documentation,
+                            @RequestParam(value="lecture") short lecture,
+                            @RequestParam(value="personalInterest") short personalInterest,
+                            @RequestParam(value="practicalWork") short practicalWork,
+                            @RequestParam(value="tutorial") short tutorial,
+                            @RequestParam(value="workload") short workload,
+                            @RequestParam(value="comment") String comment) {
+        Evaluation eval = evalManager.getEvaluation(evalId);
+        eval.setConsistency(consistency);
+        eval.setDocumentation(documentation);
+        eval.setLecture(lecture);
+        eval.setPersonalInterest(personalInterest);
+        eval.setPracticalWork(practicalWork);
+        eval.setTutorial(tutorial);
+        eval.setWorkload(workload);
+        eval.setComment(comment);
+        evalManager.updateEvaluation(evalId, eval);
+        return "";
     }
 
     private Set<Module> getNonEvaluatedModules(Student student) {

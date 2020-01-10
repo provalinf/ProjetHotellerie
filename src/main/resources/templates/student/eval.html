@@ -1,9 +1,23 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
 <head lang="fr">
-    <title th:text="${module.label + ' - ' + module.verboseName}"></title>
+    <title th:object="${module}" th:text="*{label} + ' - ' + *{verboseName}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+<form method="POST" action="">
+    <h1>Modifier l'évaluation</h1>
+    <div th:replace="/frags/select_mark::select_mark(consistency, 'Cohérence CM/TD/TP', ${eval.consistency})"></div>
+    <div th:replace="/frags/select_mark::select_mark(documentation, Documentation, ${eval.documentation})"></div>
+    <div th:replace="/frags/select_mark::select_mark(lecture, 'Cours Magistraux', ${eval.lecture})"></div>
+    <div th:replace="/frags/select_mark::select_mark(personalInterest, 'Interêt personnel', ${eval.personalInterest})"></div>
+    <div th:replace="/frags/select_mark::select_mark(practicalWork, 'Travaux Pratiques', ${eval.practicalWork})"></div>
+    <div th:replace="/frags/select_mark::select_mark(tutorial, 'Travaux Dirigés', ${eval.tutorial})"></div>
+    <div th:replace="/frags/select_mark::select_mark(workload, 'Charge de travail', ${eval.workload})"></div>
+    <label for="comment">Commentaire</label>
+    <textarea id="comment" name="comment" th:text="${eval.comment}" placeholder="Commentaire à propos du module..."></textarea>
+    <br/>
+    <input type='submit' name="Modifier"/>
+</form>
 </body>
 </html>
