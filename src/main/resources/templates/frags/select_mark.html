@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
+<body>
+<div th:fragment="select_mark(id, label)">
+<label th:for="${id}" th:text="${label}"></label>
+<select th:id="${id}" th:name="${id}" size="6">
+    <option value="0" selected="selected" >0 - Pas d'avis</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+</select>
+<br/>
+</div>
+</body>
+</html>

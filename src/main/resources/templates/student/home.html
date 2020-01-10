@@ -9,79 +9,16 @@
     <h1>Evaluer un module</h1>
     <label for="module">Module</label>
     <select id="module" name="module">
-        <option th:each="module: ${modules}" th:value="*{id}" th:text="*{label} + ' - ' + *{verboseName}"></option>
+        <option th:each="module: ${modules}" th:object="${module}" th:value="*{id}" th:text="*{label} + ' - ' + *{verboseName}"></option>
     </select>
     <br/>
-    <label for="consistency">Cohérence CM/TD/TP</label>
-    <select id="consistency" name="consistency" size="1">
-        <option value="0" selected="selected">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
-    <br/>
-    <label for="documentation">Documentation</label>
-    <select id="documentation" name="documentation" size="1">
-        <option value="0" selected="selected">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
-    <br/>
-    <label for="lecture">Cours Magistraux</label>
-    <select id="lecture" name="lecture" size="1">
-        <option value="0" selected="selected">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
-    <br/>
-    <label for="personnalInterest">Interêt personnel</label>
-    <select id="personnalInterest" name="personnalInterest" size="1">
-        <option value="0" selected="selected">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
-    <br/>
-    <label for="practicalWork">Travaux Pratiques</label>
-    <select id="practicalWork" name="practicalWork" size="1">
-        <option value="0" selected="selected">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
-    <br/>
-    <label for="tutorial">Travaux Dirigés</label>
-    <select id="tutorial" name="tutorial" size="1">
-        <option value="0" selected="selected">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
-    <br/>
-    <label for="workload">Charge de travail</label>
-    <select id="workload" name="workload" size="1">
-        <option value="0" selected="selected">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
-    <br/>
+    <div th:replace="/frags/select_mark::select_mark(consistency, 'Cohérence CM/TD/TP')"></div>
+    <div th:replace="/frags/select_mark::select_mark(documentation, Documentation)"></div>
+    <div th:replace="/frags/select_mark::select_mark(lecture, 'Cours Magistraux')"></div>
+    <div th:replace="/frags/select_mark::select_mark(personnalInterest, 'Interêt personnel')"></div>
+    <div th:replace="/frags/select_mark::select_mark(practicalWork, 'Travaux Pratiques')"></div>
+    <div th:replace="/frags/select_mark::select_mark(tutorial, 'Travaux Dirigés')"></div>
+    <div th:replace="/frags/select_mark::select_mark(workload, 'Charge de travail')"></div>
     <label for="comment">Commentaire</label>
     <textarea id="comment" name="comment" placeholder="Commentaire à propos du module..."></textarea>
     <br/>

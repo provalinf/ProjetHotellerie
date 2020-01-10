@@ -22,7 +22,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="module: ${linked_modules}">
+    <tr th:each="module:${linked_modules}" th:object="${module}">
         <td th:text="*{verboseName}"></td>
     </tr>
     </tbody>
