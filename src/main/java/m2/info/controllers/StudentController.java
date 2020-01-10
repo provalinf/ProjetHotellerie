@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/student")
@@ -21,7 +22,7 @@ public class StudentController extends UserController {
 
         String id = getIdUser(request);
         Student student = userManager.getStudent(id);
-        model.addAttribute("modules", student.getModules());
+        model.addAttribute("modules", getNonEvaluatedModules(student));
         model.addAttribute("evals", student.getEvaluations());
 
         return "student/home";
@@ -45,6 +46,15 @@ public class StudentController extends UserController {
         evalManager.addEvaluation(eval);
 
         return home(request, model);
+    }
+
+    private Set<Module> getNonEvaluatedModules(Student student) {
+        Set<Module> modules = student.getModules();
+
+        for (Evaluation eval : student.getEvaluations())
+            modules.remove(eval.getModule());
+
+        return modules;
     }
 
 }

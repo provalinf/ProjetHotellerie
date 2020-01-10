@@ -4,6 +4,7 @@ import m2.info.models.Evaluation;
 
 public interface IEvalManagement {
 
+    Evaluation getEvaluation(long id);
     boolean addEvaluation(Evaluation eval);
     boolean updateEvaluation(long id, Evaluation eval);
     boolean deleteEvaluation(long id);

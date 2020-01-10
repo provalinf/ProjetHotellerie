@@ -12,6 +12,9 @@ public class EvalManagement implements IEvalManagement {
     @Autowired private EvalRepository repository;
 
     @Override
+    public Evaluation getEvaluation(long id) { return repository.findOne(id); }
+
+    @Override
     public boolean addEvaluation(Evaluation eval) {
         if (!repository.exists(eval.getId())) {
             repository.save(eval);

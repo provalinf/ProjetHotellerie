@@ -1,6 +1,5 @@
 package m2.info.models;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import m2.info.models.user.Student;
 
 import javax.persistence.*;
@@ -41,15 +40,15 @@ public class Evaluation {
     @Column(name = "workload_mark", nullable = false)
     private short workload;
 
-    @Column(name = "comment")
+    @Column(name = "comment", nullable = false)
     private String comment;
 
     @ManyToOne
-    @JoinColumn(name="author")
+    @JoinColumn(name="author", nullable = false)
     private Student author;
 
     @ManyToOne
-    @JoinColumn(name="module")
+    @JoinColumn(name="module", nullable = false)
     private Module module;
 
     public Evaluation(){}
@@ -98,4 +97,5 @@ public class Evaluation {
 
     public void setModule(Module module) { this.module = module; }
     public Module getModule() { return module; }
+
 }

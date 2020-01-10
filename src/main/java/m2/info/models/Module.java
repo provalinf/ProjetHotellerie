@@ -57,4 +57,5 @@ public class Module {
     public Set<Evaluation> getEvaluations() { return evaluations; }
 
     public void setEvaluations(Set<Evaluation> evaluations) { this.evaluations = evaluations; }
+
 }
