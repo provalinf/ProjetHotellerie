@@ -26,6 +26,7 @@
         <th>Nom</th>
         <th>Libellé</th>
         <th>Description</th>
+        <th>Supprimer</th>
     </tr>
     </thead>
     <tbody>
@@ -33,6 +34,7 @@
         <td th:text="*{verboseName}"></td>
         <td th:text="*{label}"></td>
         <td th:text="*{description}"></td>
+        <td><a th:text="X" th:href="@{/admin/module/} + *{id} + '/delete'"></a></td>
     </tr>
     </tbody>
 </table>

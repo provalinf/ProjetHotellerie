@@ -2,6 +2,7 @@ package m2.info.models.user;
 
 import m2.info.config.BCryptManager;
 import m2.info.models.Module;
+import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;

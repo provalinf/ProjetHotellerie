@@ -16,12 +16,25 @@ public class ModuleManagement implements IModuleManagement {
 	}
 
 	@Override
-	public Module addModule(Module module) {
-		return repository.save(module);
+	public boolean addModule(Module module) {
+		if (!repository.exists(module.getId())) {
+			repository.save(module);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
-	public Module getModule(Long id) {
+	public Module getModule(long id) {
 		return repository.findOne(id);
+	}
+
+	@Override
+	public boolean deleteModule(long id) {
+		if (repository.exists(id)) {
+			repository.delete(id);
+			return true;
+		}
+		return false;
 	}
 }

@@ -1,7 +1,8 @@
 package m2.info.models;
 
 import m2.info.models.user.User;
-
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -30,6 +31,7 @@ public class Module {
     private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy="module")
+    @Cascade(CascadeType.DELETE)
     private Set<Evaluation> evaluations = new HashSet<>();
 
     public Module() {}

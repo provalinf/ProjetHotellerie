@@ -1,6 +1,8 @@
 package m2.info.models.user;
 
 import m2.info.models.Evaluation;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 
@@ -14,6 +16,7 @@ import java.util.Set;
 public class Student extends User {
 
     @OneToMany(mappedBy="author")
+    @Cascade(CascadeType.DELETE)
     private Set<Evaluation> evaluations = new HashSet<>();
 
     public Student(){}

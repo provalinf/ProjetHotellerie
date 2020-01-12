@@ -8,7 +8,7 @@
 <form method="POST" action="">
     <h1>Lier module</h1>
     <select name="module">
-        <option th:each="module: ${modules}" th:value="*{id}" th:text="*{label} + ' - ' + *{verboseName}"></option>
+        <option th:each="module: ${modules}" th:object="${module}" th:value="*{id}" th:text="*{label} + ' - ' + *{verboseName}"></option>
     </select>
     <br/>
     <input type='submit' name="Lier"/>

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("admin/")
@@ -67,6 +68,12 @@ public class AdminController {
         return displayStudent(model, userId);
     }
 
+    @GetMapping("student/{userId}/delete")
+    public RedirectView deleteStudent(Model model, @PathVariable String userId) {
+        userManager.deleteStudent(userId);
+        return new RedirectView("/admin/users");
+    }
+
     @GetMapping("teacher/{userId}")
     public String displayTeacher(Model model, @PathVariable String userId) {
         Teacher teacher = userManager.getTeacher(userId);
@@ -86,6 +93,12 @@ public class AdminController {
         return displayTeacher(model, userId);
     }
 
+    @GetMapping("teacher/{userId}/delete")
+    public RedirectView deleteTeacher(Model model, @PathVariable String userId) {
+        userManager.deleteTeacher(userId);
+        return new RedirectView("/admin/users");
+    }
+
     @GetMapping("modules")
     public String displayModules(Model model) {
         model.addAttribute("modules", moduleManager.getAllModules());
@@ -96,6 +109,12 @@ public class AdminController {
     public String displayModule(Model model, @PathVariable Integer moduleId) {
         model.addAttribute("module", moduleManager.getModule(moduleId.longValue()));
         return "admin/module";
+    }
+
+    @GetMapping("module/{moduleId}/delete")
+    public RedirectView deleteModule(Model model, @PathVariable long moduleId) {
+        moduleManager.deleteModule(moduleId);
+        return new RedirectView("/admin/modules");
     }
 
     @PostMapping("modules")
