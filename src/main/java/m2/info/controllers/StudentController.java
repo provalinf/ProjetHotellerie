@@ -6,6 +6,7 @@ import m2.info.models.user.Student;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Set;
@@ -54,7 +55,7 @@ public class StudentController extends UserController {
     }
 
     @PostMapping("evaluation/{evalId}")
-    public String updateEval(Model model, @PathVariable long evalId,
+    public RedirectView updateEval(Model model, @PathVariable long evalId,
                             @RequestParam(value="consistency") short consistency,
                             @RequestParam(value="documentation") short documentation,
                             @RequestParam(value="lecture") short lecture,
@@ -73,7 +74,7 @@ public class StudentController extends UserController {
         eval.setWorkload(workload);
         eval.setComment(comment);
         evalManager.updateEvaluation(evalId, eval);
-        return "";
+        return new RedirectView("/student/home");
     }
 
     private Set<Module> getNonEvaluatedModules(Student student) {

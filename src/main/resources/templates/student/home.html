@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<form method="POST" action="">
+<form method="POST" action="" th:if="${!modules.isEmpty()}">
     <h1>Evaluer un module</h1>
     <label for="module">Module</label>
     <select id="module" name="module">
@@ -24,6 +24,7 @@
     <br/>
     <input type='submit' name="Evaluer"/>
 </form>
+<div th:if="${!evals.isEmpty()}">
 <hr/>
 <table>
     <caption>Evaluations</caption>
@@ -36,5 +37,6 @@
     </tbody>
 </table>
 <hr/>
+</div>
 </body>
 </html>

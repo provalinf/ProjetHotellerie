@@ -23,6 +23,7 @@
     <input type="radio" id="studentAuth" value="STUDENT" name="authority" checked="checked"/>
     <input type='submit' name="Ajouter"/>
 </form>
+<div th:if="${!teachers.isEmpty()}">
 <hr/>
 <table>
     <caption>Enseignants</caption>
@@ -43,7 +44,9 @@
     </tr>
     </tbody>
 </table>
-<hr/>
+</div>
+<hr th:if="${!teachers.isEmpty() || !students.isEmpty()}"/>
+<div th:if="${!students.isEmpty()}">
 <table>
     <caption>Etudiants</caption>
     <thead>
@@ -64,5 +67,6 @@
     </tbody>
 </table>
 <hr/>
+</div>
 </body>
 </html>

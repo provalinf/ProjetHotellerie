@@ -7,6 +7,7 @@ import m2.info.models.user.Teacher;
 import m2.info.services.module.IModuleManagement;
 import m2.info.services.user.IUserManagement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,9 +37,7 @@ public class AdminController {
                           @RequestParam(value="firstname") String firstname,
                           @RequestParam(value="authority") String authority) {
 
-        final int endIndex = (lastname.length() < 8) ? lastname.length() : 7;
-        String username = firstname.charAt(0) + lastname.substring(0, endIndex);
-        username = normalize(username);
+        String username = createUsername(lastname, firstname);
 
         if (authority.equals(Authorities.STUDENT.name()))
             userManager.addStudent(new Student(id, username, "mdp_" + username, lastname, firstname));
@@ -127,11 +126,30 @@ public class AdminController {
         return displayModules(model);
     }
 
-    private String normalize(String s) {
-            s = s.toLowerCase();
-            s = s.replaceAll("à", "a");
-            s = s.replaceAll("[éèêë]", "e");
-            s = s.replaceAll("-", "");
-            return s;
+    private String createUsername(String lastname, String firstname) {
+
+        final int endIndex = (lastname.length() < 8) ? lastname.length() : 7;
+        String s = firstname.charAt(0) + lastname.substring(0, endIndex), username;
+
+        int i = 1;
+        boolean validUsername = false;
+
+        s = s.toLowerCase();
+        s = s.replaceAll("à", "a");
+        s = s.replaceAll("[éèêë]", "e");
+        s = s.replaceAll("-", "");
+
+        do {
+            username = s + i;
+            try {
+                userManager.loadUserByUsername(username);
+            } catch (UsernameNotFoundException e) {
+                validUsername = true;
+                continue;
+            }
+            ++i;
+        } while (!validUsername);
+
+        return username;
     }
 }
