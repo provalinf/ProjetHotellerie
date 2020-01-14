@@ -25,73 +25,30 @@ public class UserManagement implements IUserManagement {
     }
 
     @Override
-    public boolean addStudent(Student student) {
-        if (!studentRepository.exists(student.getId())) {
-            studentRepository.save(student);
+    public void saveUser(User user) { userRepository.save(user); }
+
+    @Override
+    public boolean deleteUser(String id) {
+        if (userRepository.exists(id)) {
+            userRepository.delete(id);
             return true;
         }
         return false;
     }
 
     @Override
-    public boolean updateStudent(String id, Student student) {
-        if (deleteStudent(id)) {
-            addStudent(student);
-            return true;
-        }
-        return false;
-    }
+    public User getUser(String id) { return userRepository.findOne(id); }
 
     @Override
-    public boolean deleteStudent(String id) {
-        if (studentRepository.exists(id)) {
-            studentRepository.delete(id);
-            return true;
-        }
-        return false;
+    public Iterable<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     @Override
     public Student getStudent(String id) { return studentRepository.findOne(id); }
 
-    @Override
-    public Iterable<Student> getAllStudents() {
-        return studentRepository.findAll();
-    }
-
-    @Override
-    public boolean addTeacher(Teacher teacher) {
-        if (!teacherRepository.exists(teacher.getId())) {
-            teacherRepository.save(teacher);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean updateTeacher(String id, Teacher teacher) {
-        if (deleteTeacher(id)) {
-            addTeacher(teacher);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean deleteTeacher(String id) {
-        if (teacherRepository.exists(id)) {
-            teacherRepository.delete(id);
-            return true;
-        }
-        return false;
-    }
 
     @Override
     public Teacher getTeacher(String id) { return teacherRepository.findOne(id); }
-
-    @Override
-    public Iterable<Teacher> getAllTeachers() {
-        return teacherRepository.findAll();
-    }
 
 }

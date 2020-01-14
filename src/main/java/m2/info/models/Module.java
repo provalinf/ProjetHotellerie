@@ -31,7 +31,7 @@ public class Module {
     private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy="module")
-    @Cascade(CascadeType.DELETE)
+    @Cascade(CascadeType.ALL)
     private Set<Evaluation> evaluations = new HashSet<>();
 
     public Module() {}

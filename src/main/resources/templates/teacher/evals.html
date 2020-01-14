@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
+<head lang="fr">
+    <title th:object="${module}" th:text="*{label} + ' - ' + *{verboseName}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<header th:replace="/frags/header::teacher-header"></header>
+<hr/>
+<table>
+    <caption>Evaluations</caption>
+    <thead>
+    <tr>
+        <th>Cohérence CM/TD/TP</th>
+        <th>Documentation</th>
+        <th>Cours Magistraux</th>
+        <th>Intêret Personnel</th>
+        <th>Travaux Pratiques</th>
+        <th>Charge de travail</th>
+        <th>Commentaire</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="eval: ${evals}" th:object="${eval}">
+        <td th:text="*{consistency}"></td>
+        <td th:text="*{documentation}"></td>
+        <td th:text="*{lecture}"></td>
+        <td th:text="*{personalInterest}"></td>
+        <td th:text="*{practicalWork}"></td>
+        <td th:text="*{tutorial}"></td>
+        <td th:text="*{workload}"></td>
+        <td th:text="*{comment}"></td>
+    </tr>
+    </tbody>
+</table>
+<hr/>
+</body>
+</html>

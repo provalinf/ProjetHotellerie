@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
-<head>
-    ...
-</head>
 <body>
 <header th:fragment="admin-header">
     <ul>
         <li><a href="/admin/modules/">Modules</a></li>
         <li><a href="/admin/users/">Utilisateurs</a></li>
+    </ul>
+</header>
+<header th:fragment="student-header">
+    <ul>
+        <li><a href="/student/">Evaluations</a></li>
+    </ul>
+</header>
+<header th:fragment="teacher-header">
+    <ul>
+        <li><a href="/teacher/">Modules</a></li>
     </ul>
 </header>
 </body>

@@ -4,6 +4,7 @@ import m2.info.models.Module;
 import m2.info.models.user.Authorities;
 import m2.info.models.user.Student;
 import m2.info.models.user.Teacher;
+import m2.info.models.user.User;
 import m2.info.services.module.IModuleManagement;
 import m2.info.services.user.IUserManagement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 @RequestMapping("admin/")
@@ -23,11 +27,27 @@ public class AdminController {
     @GetMapping("/")
     public String home() { return "admin/home"; }
 
-    @GetMapping("users")
-    public String displayUsers(Model model) {
-        model.addAttribute("students", userManager.getAllStudents());
-        model.addAttribute("teachers", userManager.getAllTeachers());
-        return "admin/users";
+    @GetMapping("user/{userId}")
+    public String displayUser(Model model, @PathVariable String userId) {
+        User user = userManager.getUser(userId);
+        model.addAttribute("modules", moduleManager.getAllModules());
+        model.addAttribute("user", user);
+        model.addAttribute("linked_modules", user.getModules());
+        return "admin/user";
+    }
+
+    @PostMapping("user/{userId}")
+    public RedirectView linkModule(Model model, @PathVariable String userId,  @RequestParam(value="module") long idModule) {
+        User user = userManager.getUser(userId);
+        user.addModule(moduleManager.getModule(idModule));
+        userManager.saveUser(user);
+        return new RedirectView("/admin/users");
+    }
+
+    @GetMapping("user/{userId}/delete")
+    public RedirectView deleteUser(Model model, @PathVariable String userId) {
+        userManager.deleteUser(userId);
+        return new RedirectView("/admin/users");
     }
 
     @PostMapping("users")
@@ -40,80 +60,41 @@ public class AdminController {
         String username = createUsername(lastname, firstname);
 
         if (authority.equals(Authorities.STUDENT.name()))
-            userManager.addStudent(new Student(id, username, "mdp_" + username, lastname, firstname));
+            userManager.saveUser(new Student(id, username, "mdp_" + username, lastname, firstname));
         else    if (authority.equals(Authorities.TEACHER.name()))
-                    userManager.addTeacher(new Teacher(id, username, "mdp_" + username, lastname, firstname));
+                    userManager.saveUser(new Teacher(id, username, "mdp_" + username, lastname, firstname));
                 else throw new IllegalStateException();
 
         return displayUsers(model);
     }
 
-    @GetMapping("student/{userId}")
-    public String displayStudent(Model model, @PathVariable String userId) {
-        Student student = userManager.getStudent(userId);
-        model.addAttribute("modules", moduleManager.getAllModules());
-        model.addAttribute("student", student);
-        model.addAttribute("linked_modules", student.getModules());
-        return "admin/student";
+    @GetMapping("users")
+    public String displayUsers(Model model) {
+        model.addAttribute("users", userManager.getAllUsers());
+        return "admin/users";
     }
 
-    @PostMapping("student/{userId}")
-    public String addStudentModule(Model model,
-                                   @PathVariable String userId,
-                                   @RequestParam(value="module") Integer idModule) {
-        Student student = userManager.getStudent(userId);
-        student.addModule(moduleManager.getModule(idModule.longValue()));
-        userManager.updateStudent(userId, student);
-        return displayStudent(model, userId);
-    }
-
-    @GetMapping("student/{userId}/delete")
-    public RedirectView deleteStudent(Model model, @PathVariable String userId) {
-        userManager.deleteStudent(userId);
-        return new RedirectView("/admin/users");
-    }
-
-    @GetMapping("teacher/{userId}")
-    public String displayTeacher(Model model, @PathVariable String userId) {
-        Teacher teacher = userManager.getTeacher(userId);
-        model.addAttribute("modules", moduleManager.getAllModules());
-        model.addAttribute("teacher", teacher);
-        model.addAttribute("linked_modules", teacher.getModules());
-        return "admin/teacher";
-    }
-
-    @PostMapping("teacher/{userId}")
-    public String addTeachertModule(Model model,
-                                   @PathVariable String userId,
-                                   @RequestParam(value="module") Integer idModule) {
-        Teacher teacher = userManager.getTeacher(userId);
-        teacher.addModule(moduleManager.getModule(idModule.longValue()));
-        userManager.updateTeacher(userId, teacher);
-        return displayTeacher(model, userId);
-    }
-
-    @GetMapping("teacher/{userId}/delete")
-    public RedirectView deleteTeacher(Model model, @PathVariable String userId) {
-        userManager.deleteTeacher(userId);
-        return new RedirectView("/admin/users");
-    }
-
-    @GetMapping("modules")
+    @GetMapping("modules/")
     public String displayModules(Model model) {
         model.addAttribute("modules", moduleManager.getAllModules());
         return "admin/modules";
     }
 
     @GetMapping("module/{moduleId}")
-    public String displayModule(Model model, @PathVariable Integer moduleId) {
-        model.addAttribute("module", moduleManager.getModule(moduleId.longValue()));
-        return "admin/module";
-    }
+    public String displayModule(Model model, @PathVariable long moduleId) {
+        Module module = moduleManager.getModule(moduleId);
+        Set<Student> students = new HashSet<>();
+        Set<Teacher> teachers = new HashSet<>();
 
-    @GetMapping("module/{moduleId}/delete")
-    public RedirectView deleteModule(Model model, @PathVariable long moduleId) {
-        moduleManager.deleteModule(moduleId);
-        return new RedirectView("/admin/modules");
+        for (User user : module.getUsers())
+            if (user instanceof Student) students.add((Student)user);
+            else teachers.add((Teacher)user);
+
+        model.addAttribute("module", module);
+        model.addAttribute("students", students);
+        model.addAttribute("teachers", teachers);
+
+        return "admin/module";
     }
 
     @PostMapping("modules")
@@ -122,8 +103,27 @@ public class AdminController {
                             @RequestParam(value="label") String label,
                             @RequestParam(value="description") String description) {
 
-        moduleManager.addModule(new Module(verboseName, label, description));
+        moduleManager.saveModule(new Module(verboseName, label, description));
         return displayModules(model);
+    }
+
+    @PostMapping("module/{moduleId}")
+    public RedirectView updateModule(Model model, @PathVariable long moduleId,
+                                     @RequestParam(value="verboseName") String verboseName,
+                                     @RequestParam(value="label") String label,
+                                     @RequestParam(value="description") String description) {
+        Module module= moduleManager.getModule(moduleId);
+        module.setVerboseName(verboseName);
+        module.setLabel(label);
+        module.setDescription(description);
+        moduleManager.saveModule(module);
+        return new RedirectView("/admin/modules/");
+    }
+
+    @GetMapping("module/{moduleId}/delete")
+    public RedirectView deleteModule(Model model, @PathVariable long moduleId) {
+        moduleManager.deleteModule(moduleId);
+        return new RedirectView("/admin/modules/");
     }
 
     private String createUsername(String lastname, String firstname) {

@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<div th:replace="/frags/header::admin-header"></div>
+<header th:replace="/frags/header::admin-header"></header>
 <form method="POST" action="">
     <h1>Ajouter un nouvel utilisateur</h1>
     <label for="id">N° identifiant *</label>
@@ -17,56 +17,39 @@
     <label for="firstname">Prénom *</label>
     <input type="text" id="firstname" name="firstname" maxlength="32" required="required"/>
     <br/>
-    <label for="teacherAuth">Enseignant</label>
-    <input type="radio" id="teacherAuth" value="TEACHER" name="authority"/>
-    <label for="studentAuth">Etudiant</label>
-    <input type="radio" id="studentAuth" value="STUDENT" name="authority" checked="checked"/>
-    <input type='submit' name="Ajouter"/>
+    <fieldset>
+        <legend>Rôle</legend>
+        <label for="teacherAuth">Enseignant</label>
+        <input type="radio" id="teacherAuth" value="TEACHER" name="authority"/>
+        <label for="studentAuth">Etudiant</label>
+        <input type="radio" id="studentAuth" value="STUDENT" name="authority" checked="checked"/>
+    </fieldset>
+    <input type="submit" value="Ajouter"/>
 </form>
-<div th:if="${!teachers.isEmpty()}">
 <hr/>
 <table>
-    <caption>Enseignants</caption>
+    <caption>Utilisateurs</caption>
     <thead>
     <tr>
-        <th>N° enseignant</th>
+        <th>N° enseignant / étudiant</th>
         <th>Nom</th>
         <th>Prénom</th>
+        <th>Identifiant</th>
+        <th>Rôle</th>
         <th>Supprimer</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="teacher: ${teachers}" th:object="${teacher}">
-        <td><a th:text="*{id}" th:href="@{/admin/teacher/} + *{id}"></a></td>
+    <tr th:each="user: ${users}" th:object="${user}">
+        <td><a th:text="*{id}" th:href="@{/admin/user/} + *{id}"></a></td>
         <td th:text="*{lastname}"></td>
         <td th:text="*{firstname}"></td>
-        <td><a th:text="X" th:href="@{/admin/teacher/} + *{id} + '/delete'"></a></td>
-    </tr>
-    </tbody>
-</table>
-</div>
-<hr th:if="${!teachers.isEmpty() || !students.isEmpty()}"/>
-<div th:if="${!students.isEmpty()}">
-<table>
-    <caption>Etudiants</caption>
-    <thead>
-    <tr>
-        <th>N° étudiant</th>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Supprimer</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="student: ${students}" th:object="${student}">
-        <td><a th:text="*{id}" th:href="@{/admin/student/} + *{id}"></a></td>
-        <td th:text="*{lastname}"></td>
-        <td th:text="*{firstname}"></td>
-        <td><a th:text="X" th:href="@{/admin/student/} + *{id} + '/delete'"></a></td>
+        <td th:text="*{username}"></td>
+        <td th:with="role=${user instanceof T(m2.info.models.user.Teacher) ? 'Enseignant' : 'Etudiant'}" th:text="${role}"></td>
+        <td><a th:href="@{/admin/teacher/} + *{id} + '/delete'">X</a></td>
     </tr>
     </tbody>
 </table>
 <hr/>
-</div>
 </body>
 </html>

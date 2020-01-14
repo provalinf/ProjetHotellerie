@@ -1,24 +1,23 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
 <head lang="fr">
-    <title>Teacher</title>
+    <title th:object="${teacher}" th:text="*{firstname} + ' ' + *{lastname}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+<header th:replace="/frags/header::teacher-header"></header>
 <table>
-    <caption>Modules que vous enseignez</caption>
+    <caption>Modules enseignés</caption>
     <thead>
     <tr>
-        <th>Nom</th>
-        <th>Libellé</th>
-        <th>Description</th>
+        <th>Module</th>
+        <th>Nombre d'évaluations</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="module: ${modules}">
-        <td th:text="*{verboseName}"></td>
-        <td th:text="*{label}"></td>
-        <td th:text="*{description}"></td>
+    <tr th:each="module:${modules}" th:object="${module}">
+        <td><a th:text="*{label} + ' - ' + *{verboseName}" th:href="@{evaluations/} + *{id}"></a></td>
+        <td th:text="${#arrays.length(module.evaluations)}"></td>
     </tr>
     </tbody>
 </table>

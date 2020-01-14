@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
 <head lang="fr">
-    <title>Student</title>
+    <title th:object="${student}" th:text="*{firstname} + ' ' + *{lastname}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+<header th:replace="/frags/header::student-header"></header>
 <form method="POST" action="" th:if="${!modules.isEmpty()}">
     <h1>Evaluer un module</h1>
     <label for="module">Module</label>
@@ -12,27 +13,47 @@
         <option th:each="module:${modules}" th:object="${module}" th:value="*{id}" th:text="*{label} + ' - ' + *{verboseName}"></option>
     </select>
     <br/>
-    <div th:replace="/frags/select_mark::select_mark(consistency, 'Cohérence CM/TD/TP', 0)"></div>
-    <div th:replace="/frags/select_mark::select_mark(documentation, Documentation, 0)"></div>
-    <div th:replace="/frags/select_mark::select_mark(lecture, 'Cours Magistraux', 0)"></div>
-    <div th:replace="/frags/select_mark::select_mark(personalInterest, 'Interêt personnel', 0)"></div>
-    <div th:replace="/frags/select_mark::select_mark(practicalWork, 'Travaux Pratiques', 0)"></div>
-    <div th:replace="/frags/select_mark::select_mark(tutorial, 'Travaux Dirigés', 0)"></div>
-    <div th:replace="/frags/select_mark::select_mark(workload, 'Charge de travail', 0)"></div>
+    <div th:replace="/frags/eval::select(consistency, 'Cohérence CM/TD/TP', 0)"></div>
+    <div th:replace="/frags/eval::select(documentation, Documentation, 0)"></div>
+    <div th:replace="/frags/eval::select(lecture, 'Cours Magistraux', 0)"></div>
+    <div th:replace="/frags/eval::select(personalInterest, 'Interêt personnel', 0)"></div>
+    <div th:replace="/frags/eval::select(practicalWork, 'Travaux Pratiques', 0)"></div>
+    <div th:replace="/frags/eval::select(tutorial, 'Travaux Dirigés', 0)"></div>
+    <div th:replace="/frags/eval::select(workload, 'Charge de travail', 0)"></div>
     <label for="comment">Commentaire</label>
     <textarea id="comment" name="comment" placeholder="Commentaire à propos du module..."></textarea>
     <br/>
-    <input type='submit' name="Evaluer"/>
+    <input type='submit' value="Evaluer"/>
 </form>
 <div th:if="${!evals.isEmpty()}">
 <hr/>
 <table>
     <caption>Evaluations</caption>
     <thead>
+    <tr>
+        <th>Module</th>
+        <th>Cohérence CM/TD/TP</th>
+        <th>Documentation</th>
+        <th>Cours Magistraux</th>
+        <th>Intêret Personnel</th>
+        <th>Travaux Pratiques</th>
+        <th>Charge de travail</th>
+        <th>Commentaire</th>
+        <th>Supprimer</th>
+    </tr>
     </thead>
     <tbody>
-    <tr th:each="eval: ${evals}">
-        <td th:object="${eval.module}"><a th:text="*{label} + ' - ' + *{verboseName}" th:href="@{evaluation/} + ${eval.id}"></a></td>
+    <tr th:each="eval: ${evals}" th:object="${eval}">
+        <td><a th:text="*{module.label} + ' - ' + *{module.verboseName}" th:href="@{evaluation/} + *{id}"></a></td>
+        <td th:text="*{consistency}"></td>
+        <td th:text="*{documentation}"></td>
+        <td th:text="*{lecture}"></td>
+        <td th:text="*{personalInterest}"></td>
+        <td th:text="*{practicalWork}"></td>
+        <td th:text="*{tutorial}"></td>
+        <td th:text="*{workload}"></td>
+        <td th:text="*{comment}"></td>
+        <td><a th:href="@{evaluation/} + *{id} + '/delete'">X</a></td>
     </tr>
     </tbody>
 </table>

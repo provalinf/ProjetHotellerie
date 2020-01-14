@@ -1,35 +1,24 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
 <head lang="fr">
-    <title th:text="${teacher.firstname + ' ' + teacher.lastname}"></title>
+    <title th:text="${user.firstname + ' ' + user.lastname}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<div th:replace="/frags/header::admin-header"></div>
+<header th:replace="/frags/header::admin-header"></header>
 <form method="POST" action="" th:if="${!modules.isEmpty()}">
     <h1>Lier module</h1>
     <select name="module">
         <option th:each="module: ${modules}" th:object="${module}" th:value="*{id}" th:text="*{label} + ' - ' + *{verboseName}"></option>
     </select>
     <br/>
-    <input type='submit' name="Lier"/>
+    <input type="submit" name="Lier"/>
 </form>
-<div th:if="${!linked_modules.isEmpty()}">
 <hr/>
-<table>
-    <caption>Enseigne</caption>
-    <thead>
-    <tr>
-        <th>Nom</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="module:${linked_modules}" th:object="${module}">
-        <td th:text="*{verboseName}"></td>
-    </tr>
-    </tbody>
-</table>
+    <h2 th:with="text=${user instanceof T(m2.info.models.user.Teacher) ? 'Enseigne' : 'Est inscrit dans'}" th:text="${text} + ' :'"></h2>
+    <ul th:each="module:${linked_modules}" th:object="${module}">
+        <li><a th:href="@{/admin/module/} + *{id}" th:text="*{label} + ' - ' + *{verboseName}"></a></li>
+    </ul>
 <hr/>
-</div>
 </body>
 </html>

@@ -3,6 +3,8 @@ package m2.info.services.module;
 import m2.info.models.Module;
 import m2.info.repositories.ModuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,14 +13,12 @@ public class ModuleManagement implements IModuleManagement {
 	@Autowired private ModuleRepository repository;
 
 	@Override
-	public Iterable<Module> getAllModules() {
-		return repository.findAll();
-	}
+	public void saveModule(Module module) { repository.save(module); }
 
 	@Override
-	public boolean addModule(Module module) {
-		if (!repository.exists(module.getId())) {
-			repository.save(module);
+	public boolean deleteModule(long id) {
+		if (repository.exists(id)) {
+			repository.delete(id);
 			return true;
 		}
 		return false;
@@ -30,11 +30,7 @@ public class ModuleManagement implements IModuleManagement {
 	}
 
 	@Override
-	public boolean deleteModule(long id) {
-		if (repository.exists(id)) {
-			repository.delete(id);
-			return true;
-		}
-		return false;
+	public Iterable<Module> getAllModules() {
+		return repository.findAll();
 	}
 }

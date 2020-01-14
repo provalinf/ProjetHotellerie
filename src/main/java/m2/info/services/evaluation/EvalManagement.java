@@ -15,22 +15,7 @@ public class EvalManagement implements IEvalManagement {
     public Evaluation getEvaluation(long id) { return repository.findOne(id); }
 
     @Override
-    public boolean addEvaluation(Evaluation eval) {
-        if (!repository.exists(eval.getId())) {
-            repository.save(eval);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean updateEvaluation(long id, Evaluation eval) {
-        if (deleteEvaluation(id)) {
-            addEvaluation(eval);
-            return true;
-        }
-        return false;
-    }
+    public void saveEvaluation(Evaluation eval) { repository.save(eval); }
 
     @Override
     public boolean deleteEvaluation(long id) {

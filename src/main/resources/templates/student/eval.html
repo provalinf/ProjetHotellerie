@@ -5,15 +5,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+<header th:replace="/frags/header::student-header"></header>
 <form method="POST" action="">
     <h1>Modifier l'évaluation</h1>
-    <div th:replace="/frags/select_mark::select_mark(consistency, 'Cohérence CM/TD/TP', ${eval.consistency})"></div>
-    <div th:replace="/frags/select_mark::select_mark(documentation, Documentation, ${eval.documentation})"></div>
-    <div th:replace="/frags/select_mark::select_mark(lecture, 'Cours Magistraux', ${eval.lecture})"></div>
-    <div th:replace="/frags/select_mark::select_mark(personalInterest, 'Interêt personnel', ${eval.personalInterest})"></div>
-    <div th:replace="/frags/select_mark::select_mark(practicalWork, 'Travaux Pratiques', ${eval.practicalWork})"></div>
-    <div th:replace="/frags/select_mark::select_mark(tutorial, 'Travaux Dirigés', ${eval.tutorial})"></div>
-    <div th:replace="/frags/select_mark::select_mark(workload, 'Charge de travail', ${eval.workload})"></div>
+    <div th:replace="/frags/eval::select(consistency, 'Cohérence CM/TD/TP', ${eval.consistency})"></div>
+    <div th:replace="/frags/eval::select(documentation, Documentation, ${eval.documentation})"></div>
+    <div th:replace="/frags/eval::select(lecture, 'Cours Magistraux', ${eval.lecture})"></div>
+    <div th:replace="/frags/eval::select(personalInterest, 'Interêt personnel', ${eval.personalInterest})"></div>
+    <div th:replace="/frags/eval::select(practicalWork, 'Travaux Pratiques', ${eval.practicalWork})"></div>
+    <div th:replace="/frags/eval::select(tutorial, 'Travaux Dirigés', ${eval.tutorial})"></div>
+    <div th:replace="/frags/eval::select(workload, 'Charge de travail', ${eval.workload})"></div>
     <label for="comment">Commentaire</label>
     <textarea id="comment" name="comment" th:text="${eval.comment}" placeholder="Commentaire à propos du module..."></textarea>
     <br/>

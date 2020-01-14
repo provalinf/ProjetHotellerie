@@ -24,5 +24,4 @@ public abstract class UserController {
 
         return request.getSession().getAttribute(ID).toString();
     }
-
 }

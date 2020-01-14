@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<div th:replace="/frags/header::admin-header"></div>
+<header th:replace="/frags/header::admin-header"></header>
+<h1>Ajouter un nouveau module</h1>
 <form method="POST" action="">
-    <h1>Ajouter un nouveau module</h1>
     <label for="verboseName">Nom *</label>
     <input type="text" id="verboseName" name="verboseName" required="required"/>
     <br/>
@@ -17,7 +17,7 @@
     <label for="description">Description</label>
     <textarea id="description" name="description" placeholder="Description du module..."></textarea>
     <br/>
-    <input type='submit' name="Ajouter"/>
+    <input type='submit' value="Ajouter"/>
 </form>
 <hr/>
 <table>
@@ -32,10 +32,10 @@
     </thead>
     <tbody>
     <tr th:each="module: ${modules}" th:object="${module}">
-        <td th:text="*{verboseName}"></td>
+        <td><a th:text="*{verboseName}" th:href="@{/admin/module/} + *{id}"></a></td>
         <td th:text="*{label}"></td>
         <td th:text="*{description}"></td>
-        <td><a th:text="X" th:href="@{/admin/module/} + *{id} + '/delete'"></a></td>
+        <td><a th:href="@{/admin/module/} + *{id} + '/delete'">X</a></td>
     </tr>
     </tbody>
 </table>

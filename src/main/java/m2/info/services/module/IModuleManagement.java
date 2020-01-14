@@ -4,9 +4,9 @@ import m2.info.models.Module;
 
 public interface IModuleManagement {
 
-	Iterable<Module> getAllModules();
-	boolean addModule(Module module);
-	Module getModule(long id);
+	void saveModule(Module module);
 	boolean deleteModule(long id);
+	Iterable<Module> getAllModules();
+	Module getModule(long id);
 
 }

@@ -16,7 +16,7 @@ import java.util.Set;
 public class Student extends User {
 
     @OneToMany(mappedBy="author")
-    @Cascade(CascadeType.DELETE)
+    @Cascade(CascadeType.ALL)
     private Set<Evaluation> evaluations = new HashSet<>();
 
     public Student(){}
