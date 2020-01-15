@@ -11,19 +11,19 @@
     <table>
         <tr>
             <td><label for="id">Identifiant national *</label></td>
-            <td><input type="text" id="id" name="id" required="required" pattern="\w{11}"
-                       title="11 caractères alphanumériques"/></td>
+            <td><input type="text" id="id" name="id" required="required" pattern="\w*"
+                       minlength="11" maxlength="11" title="11 caractères alphanumériques"/></td>
         </tr>
         <tr>
             <td><label for="lastname">Nom *</label></td>
-            <td><input type="text" id="lastname" name="lastname" minlength="2" maxlength="16" required="required"
-                       pattern="[A-Za-zàéèêë][A-Z-a-zàéèêë]*[A-Za-zàéèêë]"
+            <td><input type="text" id="lastname" name="lastname" maxlength="16" required="required"
+                       pattern="[A-Za-zàéèêë]+-?[A-Za-zàéèêë]+"
                        title="2 caractères min., alphabétiques ou '-'"/></td>
         </tr>
         <tr>
             <td><label for="firstname">Prénom *</label></td>
-            <td><input type="text" id="firstname" name="firstname" minlength="2" maxlength="16" required="required"
-                       pattern="[A-Za-zàéèêë][A-Z-a-zàéèêë]*[A-Za-zàéèêë]"
+            <td><input type="text" id="firstname" name="firstname" maxlength="16" required="required"
+                       pattern="[A-Za-zàéèêë]+-?[A-Za-zàéèêë]+"
                        title="2 caractères min., alphabétiques ou '-'"/></td>
         </tr>
         <tr>
