@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.lang.reflect.Array;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -59,8 +58,8 @@ public class AdminController {
                           @RequestParam(value="authority") String authority) {
 
         String username = createUsername(lastname, firstname);
-        lastname = parseName(lastname);
-        firstname = parseName(firstname);
+        lastname = normalizeName(lastname);
+        firstname = normalizeName(firstname);
 
         if (authority.equals(Authorities.STUDENT.name()))
             userManager.saveUser(new Student(id, username, "mdp_" + username, lastname, firstname));
@@ -165,14 +164,18 @@ public class AdminController {
         return unlinkedModules;
     }
 
-    private String parseName(String s){
-        String[] names = s.split("-");
+    private String normalizeName(String name) {
+        String[] names = name.split("-");
 
-        for (int i = 0 ; i < names.length ; ++i) {
-            names[i] = names[i].toLowerCase();
-            names[i] = names[i].replaceFirst(".", "" + Character.toUpperCase(names[i].charAt(0))) ;
-        }
+        for (int i = 0 ; i < names.length ; ++i)
+            names[i] = normalizeString(names[i]);
 
         return String.join("-", names);
+    }
+
+    private String normalizeString(String string) {
+        string = string.toLowerCase();
+        string = string.replaceFirst(".", "" + Character.toUpperCase(string.charAt(0))) ;
+        return string;
     }
 }
