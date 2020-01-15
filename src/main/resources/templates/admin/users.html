@@ -6,25 +6,34 @@
 </head>
 <body>
 <header th:replace="/frags/header::admin-header"></header>
+<h1>Ajouter un nouvel utilisateur</h1>
 <form method="POST" action="">
-    <h1>Ajouter un nouvel utilisateur</h1>
-    <label for="id">N° identifiant *</label>
-    <input type="text" id="id" name="id" required="required"/>
-    <br/>
-    <label for="lastname">Nom *</label>
-    <input type="text" id="lastname" name="lastname" maxlength="32" required="required"/>
-    <br/>
-    <label for="firstname">Prénom *</label>
-    <input type="text" id="firstname" name="firstname" maxlength="32" required="required"/>
-    <br/>
-    <fieldset>
+    <table>
+        <tr>
+            <td><label for="id">N° identifiant *</label></td>
+            <td><input type="text" id="id" name="id" required="required"/></td>
+        </tr>
+        <tr>
+            <td><label for="lastname">Nom *</label></td>
+            <td><input type="text" id="lastname" name="lastname" maxlength="32" required="required"/></td>
+        </tr>
+        <tr>
+            <td><label for="firstname">Prénom *</label></td>
+            <td><input type="text" id="firstname" name="firstname" maxlength="32" required="required"/></td>
+        </tr>
+        <tr>
+            <td>
+                <fieldset>
         <legend>Rôle</legend>
         <label for="teacherAuth">Enseignant</label>
         <input type="radio" id="teacherAuth" value="TEACHER" name="authority"/>
         <label for="studentAuth">Etudiant</label>
         <input type="radio" id="studentAuth" value="STUDENT" name="authority" checked="checked"/>
-    </fieldset>
-    <input type="submit" value="Ajouter"/>
+                </fieldset>
+            </td>
+            <td><input type="submit" value="Ajouter"/></td>
+        </tr>
+    </table>
 </form>
 <hr/>
 <table>

@@ -23,13 +23,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/admin/**").hasAuthority(Authorities.ADMIN.name())
-                .antMatchers("/student/**").hasAuthority(Authorities.STUDENT.name())
-                .antMatchers("/teacher/**").hasAuthority(Authorities.TEACHER.name())
-                .and()
+                    .antMatchers("/admin/**").hasAuthority(Authorities.ADMIN.name())
+                    .antMatchers("/student/**").hasAuthority(Authorities.STUDENT.name())
+                    .antMatchers("/teacher/**").hasAuthority(Authorities.TEACHER.name())
+                    .and()
                 .formLogin()
-                .loginProcessingUrl("/login")
-                .successHandler(new AuthSuccessHandler());
+                    .loginPage("/index.html")
+                    .loginProcessingUrl("/perform_login")
+                    .failureUrl("/index.html?error=true")
+                    .successHandler(new AuthSuccessHandler())
+                    .and()
+                .logout()
+                    .logoutSuccessUrl("/index.html")
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID");
     }
 
     @Override
