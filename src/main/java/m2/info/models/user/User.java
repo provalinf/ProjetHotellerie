@@ -14,7 +14,7 @@ import java.util.Set;
 public abstract class User implements UserDetails {
 
     @NotNull
-    @Column(name = "id_user")
+    @Column(name = "id_user", length = 11)
     @Id protected String id;
 
     @NotNull
@@ -22,7 +22,7 @@ public abstract class User implements UserDetails {
     protected String username;
 
     @NotNull
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     protected String password;
 
     @Column(name = "account_non_expired")
@@ -38,11 +38,11 @@ public abstract class User implements UserDetails {
     protected boolean enabled;
 
     @NotNull
-    @Column(name = "lastname", nullable = false, length = 32)
+    @Column(name = "lastname", nullable = false, length = 16)
     protected String lastname;
 
     @NotNull
-    @Column(name = "firstname", nullable = false, length = 32)
+    @Column(name = "firstname", nullable = false, length = 16)
     protected String firstname;
 
     @ManyToMany(fetch = FetchType.LAZY,

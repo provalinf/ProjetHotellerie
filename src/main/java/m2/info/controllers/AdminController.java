@@ -141,9 +141,8 @@ public class AdminController {
 
         do {
             username = s + i;
-            try {
-                userManager.loadUserByUsername(username);
-            } catch (UsernameNotFoundException e) {
+            try { userManager.loadUserByUsername(username); }
+            catch (UsernameNotFoundException e) {
                 validUsername = true;
                 continue;
             }

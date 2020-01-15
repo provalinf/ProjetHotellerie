@@ -16,11 +16,11 @@ public class Module {
     @Id private long id;
 
     @NotNull
-    @Column(name = "verbose_name", nullable = false, unique = true)
+    @Column(name = "verbose_name", nullable = false, unique = true, length = 32)
     private String verboseName;
 
     @NotNull
-    @Column(name = "label", nullable = false)
+    @Column(name = "label", nullable = false, length = 8)
     private String label;
 
     @NotNull

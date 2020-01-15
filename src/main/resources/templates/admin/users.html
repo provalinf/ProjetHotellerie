@@ -10,25 +10,30 @@
 <form method="POST" action="">
     <table>
         <tr>
-            <td><label for="id">N° identifiant *</label></td>
-            <td><input type="text" id="id" name="id" required="required"/></td>
+            <td><label for="id">Identifiant national *</label></td>
+            <td><input type="text" id="id" name="id" required="required" pattern="\w{11}"
+                       title="11 caractères alphanumériques"/></td>
         </tr>
         <tr>
             <td><label for="lastname">Nom *</label></td>
-            <td><input type="text" id="lastname" name="lastname" maxlength="32" required="required"/></td>
+            <td><input type="text" id="lastname" name="lastname" minlength="2" maxlength="16" required="required"
+                       pattern="[A-Za-zàéèêë][A-Z-a-zàéèêë]*[A-Za-zàéèêë]"
+                       title="2 caractères min., alphabétiques ou '-'"/></td>
         </tr>
         <tr>
             <td><label for="firstname">Prénom *</label></td>
-            <td><input type="text" id="firstname" name="firstname" maxlength="32" required="required"/></td>
+            <td><input type="text" id="firstname" name="firstname" minlength="2" maxlength="16" required="required"
+                       pattern="[A-Za-zàéèêë][A-Z-a-zàéèêë]*[A-Za-zàéèêë]"
+                       title="2 caractères min., alphabétiques ou '-'"/></td>
         </tr>
         <tr>
             <td>
                 <fieldset>
-        <legend>Rôle</legend>
-        <label for="teacherAuth">Enseignant</label>
-        <input type="radio" id="teacherAuth" value="TEACHER" name="authority"/>
-        <label for="studentAuth">Etudiant</label>
-        <input type="radio" id="studentAuth" value="STUDENT" name="authority" checked="checked"/>
+                    <legend>Rôle</legend>
+                    <label for="teacherAuth">Enseignant</label>
+                    <input type="radio" id="teacherAuth" value="TEACHER" name="authority"/>
+                    <label for="studentAuth">Etudiant</label>
+                    <input type="radio" id="studentAuth" value="STUDENT" name="authority" checked="checked"/>
                 </fieldset>
             </td>
             <td><input type="submit" value="Ajouter"/></td>
@@ -40,7 +45,7 @@
     <caption>Utilisateurs</caption>
     <thead>
     <tr>
-        <th>N° enseignant / étudiant</th>
+        <th>Identifiant national</th>
         <th>Nom</th>
         <th>Prénom</th>
         <th>Identifiant</th>
