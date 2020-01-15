@@ -36,12 +36,25 @@ public class AdminController {
         return "admin/user";
     }
 
-    @PostMapping("user/{userId}")
+    @PostMapping("user/{userId}/link")
     public RedirectView linkModule(Model model, @PathVariable String userId,  @RequestParam(value="module") long idModule) {
         User user = userManager.getUser(userId);
         user.addModule(moduleManager.getModule(idModule));
         userManager.saveUser(user);
-        return new RedirectView("/admin/users");
+        return new RedirectView("/admin/user/" + userId);
+    }
+
+    @PostMapping("user/{userId}")
+    public RedirectView updateUser(Model model,
+                                   @PathVariable String userId,
+                                   @RequestParam(value="lastname") String lastname,
+                                   @RequestParam(value="firstname") String firstname) {
+        User user = userManager.getUser(userId);
+        user.setUsername(updateUsername(user, lastname, firstname));
+        user.setLastname(normalizeName(lastname));
+        user.setFirstname(normalizeName(firstname));
+        userManager.saveUser(user);
+        return new RedirectView("/admin/user/" + userId);
     }
 
     @GetMapping("user/{userId}/delete")
@@ -57,7 +70,7 @@ public class AdminController {
                           @RequestParam(value="firstname") String firstname,
                           @RequestParam(value="authority") String authority) {
 
-        String username = createUsername(lastname, firstname);
+        String username = generateUniqueUsername(lastname, firstname);
         lastname = normalizeName(lastname);
         firstname = normalizeName(firstname);
 
@@ -76,7 +89,7 @@ public class AdminController {
         return "admin/users";
     }
 
-    @GetMapping("modules/")
+    @GetMapping("modules")
     public String displayModules(Model model) {
         model.addAttribute("modules", moduleManager.getAllModules());
         return "admin/modules";
@@ -119,31 +132,48 @@ public class AdminController {
         module.setLabel(label);
         module.setDescription(description);
         moduleManager.saveModule(module);
-        return new RedirectView("/admin/modules/");
+        return new RedirectView("/admin/module/" + moduleId);
     }
 
     @GetMapping("module/{moduleId}/delete")
     public RedirectView deleteModule(Model model, @PathVariable long moduleId) {
         moduleManager.deleteModule(moduleId);
-        return new RedirectView("/admin/modules/");
+        return new RedirectView("/admin/modules");
     }
 
-    private String createUsername(String lastname, String firstname) {
+    private String updateUsername(User user, String newLastname, String newFirstname) {
+        String newUsername = makeUsername(newLastname, newFirstname);
+        String oldUsername = user.getUsername();
+
+        return (newUsername.equals(oldUsername.replaceAll("[0-9]+", ""))) ?
+                oldUsername : generateUniqueUsername(newUsername);
+    }
+
+    private String makeUsername(String lastname, String firstname) {
 
         final int endIndex = (lastname.length() < 8) ? lastname.length() : 7;
         String s = firstname.charAt(0) + lastname.substring(0, endIndex), username;
-
-        int i = 1;
-        boolean validUsername = false;
 
         s = s.toLowerCase();
         s = s.replaceAll("à", "a");
         s = s.replaceAll("[éèêë]", "e");
         s = s.replaceAll("-", "");
 
+        return s;
+    }
+
+    private String generateUniqueUsername(String lastname, String firstname) {
+        return generateUniqueUsername(makeUsername(lastname, firstname));
+    }
+
+    private String generateUniqueUsername(String username) {
+        int i = 1;
+        boolean validUsername = false;
+        String s;
+
         do {
-            username = s + i;
-            try { userManager.loadUserByUsername(username); }
+            s = username + i;
+            try { userManager.loadUserByUsername(s); }
             catch (UsernameNotFoundException e) {
                 validUsername = true;
                 continue;
@@ -151,7 +181,7 @@ public class AdminController {
             ++i;
         } while (!validUsername);
 
-        return username;
+        return s;
     }
 
     private Set<Module> getUnlinkedModules(User user) {

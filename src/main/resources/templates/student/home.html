@@ -6,8 +6,10 @@
 </head>
 <body>
 <header th:replace="/frags/header::student-header"></header>
-<h1>Evaluer un module</h1>
-<form th:include="/frags/form::eval-form" th:if="${!modules.isEmpty()}"></form>
+<div th:if="${!modules.isEmpty()}">
+    <h1>Evaluer un module</h1>
+    <form th:replace="/frags/form::eval-form"></form>
+</div>
 <div th:if="${!evals.isEmpty()}">
 <hr/>
 <table>

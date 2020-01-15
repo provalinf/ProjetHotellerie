@@ -15,7 +15,7 @@ import java.util.Set;
 @RequestMapping("/student")
 public class StudentController extends UserController {
 
-    @GetMapping("/")
+    @GetMapping("")
     public String home(HttpServletRequest request, Model model) {
         String id = getIdUser(request);
         Student student = userManager.getStudent(id);
@@ -27,7 +27,7 @@ public class StudentController extends UserController {
         return "student/home";
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public String addEval(HttpServletRequest request, Model model,
                           @RequestParam(value="module") long moduleId,
                           @RequestParam(value="consistency") short consistency,
@@ -75,13 +75,13 @@ public class StudentController extends UserController {
         oldEval.setWorkload(workload);
         oldEval.setComment(comment);
         evalManager.saveEvaluation(oldEval);
-        return new RedirectView("/student/");
+        return new RedirectView("/student");
     }
 
     @GetMapping("evaluation/{evalId}/delete")
     public RedirectView deleteEval(Model model, @PathVariable long evalId) {
         evalManager.deleteEvaluation(evalId);
-        return new RedirectView("/student/");
+        return new RedirectView("/student");
     }
 
     private Set<Module> getNonEvaluatedModules(Student student) {
@@ -92,5 +92,4 @@ public class StudentController extends UserController {
 
         return modules;
     }
-
 }

@@ -7,39 +7,7 @@
 <body>
 <header th:replace="/frags/header::admin-header"></header>
 <h1>Ajouter un nouvel utilisateur</h1>
-<form method="POST" action="">
-    <table>
-        <tr>
-            <td><label for="id">Identifiant national *</label></td>
-            <td><input type="text" id="id" name="id" required="required" pattern="\w*"
-                       minlength="11" maxlength="11" title="11 caractères alphanumériques"/></td>
-        </tr>
-        <tr>
-            <td><label for="lastname">Nom *</label></td>
-            <td><input type="text" id="lastname" name="lastname" maxlength="16" required="required"
-                       pattern="[A-Za-zàéèêë]+-?[A-Za-zàéèêë]+"
-                       title="2 caractères min., alphabétiques éventuellement séparés par un tiret"/></td>
-        </tr>
-        <tr>
-            <td><label for="firstname">Prénom *</label></td>
-            <td><input type="text" id="firstname" name="firstname" maxlength="16" required="required"
-                       pattern="[A-Za-zàéèêë]+-?[A-Za-zàéèêë]+"
-                       title="2 caractères min., alphabétiques éventuellement séparés par un tiret"/></td>
-        </tr>
-        <tr>
-            <td>
-                <fieldset>
-                    <legend>Rôle</legend>
-                    <label for="teacherAuth">Enseignant</label>
-                    <input type="radio" id="teacherAuth" value="TEACHER" name="authority"/>
-                    <label for="studentAuth">Etudiant</label>
-                    <input type="radio" id="studentAuth" value="STUDENT" name="authority" checked="checked"/>
-                </fieldset>
-            </td>
-            <td><input type="submit" value="Ajouter"/></td>
-        </tr>
-    </table>
-</form>
+<form th:replace="/frags/form::user-form"></form>
 <hr/>
 <table>
     <caption>Utilisateurs</caption>

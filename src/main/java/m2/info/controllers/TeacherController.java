@@ -16,7 +16,7 @@ import java.util.Set;
 @RequestMapping("/teacher")
 public class TeacherController extends UserController {
 
-    @GetMapping("/")
+    @GetMapping("")
     public String home(HttpServletRequest request, Model model) {
         String id = getIdUser(request);
         Teacher teacher = userManager.getTeacher(id);
