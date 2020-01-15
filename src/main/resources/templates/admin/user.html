@@ -6,13 +6,13 @@
 </head>
 <body>
 <header th:replace="/frags/header::admin-header"></header>
-<form method="POST" action="" th:if="${!modules.isEmpty()}">
+<form method="POST" action="" th:if="${!unlinked_modules.isEmpty()}">
     <h1>Lier module</h1>
     <select name="module">
-        <option th:each="module: ${modules}" th:object="${module}" th:value="*{id}" th:text="*{label} + ' - ' + *{verboseName}"></option>
+        <option th:each="module: ${unlinked_modules}" th:object="${module}" th:value="*{id}" th:text="*{label} + ' - ' + *{verboseName}"></option>
     </select>
     <br/>
-    <input type="submit" name="Lier"/>
+    <input type="submit" value="Lier"/>
 </form>
 <hr/>
     <h2 th:with="text=${user instanceof T(m2.info.models.user.Teacher) ? 'Enseigne' : 'Est inscrit dans'}" th:text="${text} + ' :'"></h2>

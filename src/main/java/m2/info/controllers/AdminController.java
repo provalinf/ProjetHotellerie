@@ -30,7 +30,7 @@ public class AdminController {
     @GetMapping("user/{userId}")
     public String displayUser(Model model, @PathVariable String userId) {
         User user = userManager.getUser(userId);
-        model.addAttribute("modules", moduleManager.getAllModules());
+        model.addAttribute("unlinked_modules", getUnlinkedModules(user));
         model.addAttribute("user", user);
         model.addAttribute("linked_modules", user.getModules());
         return "admin/user";
@@ -151,5 +151,15 @@ public class AdminController {
         } while (!validUsername);
 
         return username;
+    }
+
+    private Set<Module> getUnlinkedModules(User user) {
+        Set<Module> unlinkedModules = new HashSet<>();
+
+        for (Module module: moduleManager.getAllModules())
+            if (!user.getModules().contains(module))
+                unlinkedModules.add(module);
+
+        return unlinkedModules;
     }
 }

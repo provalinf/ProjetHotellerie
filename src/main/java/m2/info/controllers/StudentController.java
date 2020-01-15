@@ -75,7 +75,7 @@ public class StudentController extends UserController {
         oldEval.setWorkload(workload);
         oldEval.setComment(comment);
         evalManager.saveEvaluation(oldEval);
-        return new RedirectView("/student/home");
+        return new RedirectView("/student/");
     }
 
     @GetMapping("evaluation/{evalId}/delete")
