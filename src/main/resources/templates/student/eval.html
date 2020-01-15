@@ -6,25 +6,6 @@
 </head>
 <body>
 <header th:replace="/frags/header::student-header"></header>
-<form method="POST" action="">
-    <h1>Modifier l'évaluation</h1>
-    <table>
-    <tr th:replace="/frags/eval::select(consistency, 'Cohérence CM/TD/TP', ${eval.consistency})"></tr>
-    <tr th:replace="/frags/eval::select(documentation, Documentation, ${eval.documentation})"></tr>
-    <tr th:replace="/frags/eval::select(lecture, 'Cours Magistraux', ${eval.lecture})"></tr>
-    <tr th:replace="/frags/eval::select(personalInterest, 'Interêt personnel', ${eval.personalInterest})"></tr>
-    <tr th:replace="/frags/eval::select(practicalWork, 'Travaux Pratiques', ${eval.practicalWork})"></tr>
-    <tr th:replace="/frags/eval::select(tutorial, 'Travaux Dirigés', ${eval.tutorial})"></tr>
-    <tr th:replace="/frags/eval::select(workload, 'Charge de travail', ${eval.workload})"></tr>
-        <tr>
-            <td><label for="comment">Commentaire</label></td>
-            <td><textarea id="comment" name="comment" th:text="${eval.comment}" placeholder="Commentaire à propos du module..."></textarea></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type='submit' name="Modifier"/></td>
-        </tr>
-    </table>
-</form>
+<form th:replace="/frags/form::eval-form"></form>
 </body>
 </html>

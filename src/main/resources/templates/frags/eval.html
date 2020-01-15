@@ -1,13 +1,13 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
 <body>
 <tr th:fragment="select(id, label, selected)">
-        <td><label th:for="${id}" th:text="${label}"></label></td>
-        <td>
-            <select th:id="${id}" th:name="${id}" size="6">
-                <option th:each="i:${#numbers.sequence(0,5)}" th:value="${i}" th:text="${i}" th:selected="${selected==i}"></option>
-            </select>
-        </td>
+    <td><label th:for="${id}" th:text="${label}"></label></td>
+    <td>
+        <select th:id="${id}" th:name="${id}" size="6">
+            <option th:each="i:${#numbers.sequence(0,5)}" th:value="${i}" th:text="${i}" th:selected="${selected==i}"></option>
+        </select>
+    </td>
 </tr>
 </body>
 </html>

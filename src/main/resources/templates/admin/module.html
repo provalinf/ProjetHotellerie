@@ -7,7 +7,7 @@
 <body>
 <header th:replace="/frags/header::admin-header"></header>
 <h1>Modifier le module</h1>
-<form th:replace="/frags/form::module-form" th:object="${module}"></form>
+<form th:replace="/frags/form::module-form"></form>
 <hr/>
 <h2>Etudiants inscrits :</h2>
 <ul th:each="student:${students}" th:object="${student}">

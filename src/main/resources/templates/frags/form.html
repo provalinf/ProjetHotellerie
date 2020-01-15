@@ -6,12 +6,16 @@
         <tr>
             <td><label for="verboseName">Nom *</label></td>
             <td><input type="text" id="verboseName" name="verboseName" required="required"
-                       th:value="${module?.verboseName}" maxlength="32" pattern="\w*"/></td>
+                       th:value="${module?.verboseName}" maxlength="32"
+                       pattern="[A-Za-z0-9àéèêë]( ?[A-Za-z0-9àéèêë])+"
+                       title="2 caractères min., alphanumériques éventuellement séparés par un espace"/></td>
         </tr>
         <tr>
             <td><label for="label">Libellé *</label></td>
             <td><input type="text" id="label" name="label" required="required"
-                       th:value="${module?.label}" maxlength="8" pattern="\w*"/></td>
+                       th:value="${module?.label}" maxlength="8"
+                       pattern="[A-Za-z0-9àéèêë]( ?[A-Za-z0-9àéèêë])+"
+                       title="2 caractères min., alphanumériques éventuellement séparés par un espace"/></td>
         </tr>
         <tr>
             <td><label for="description">Description</label></td>
@@ -21,6 +25,35 @@
         <tr>
             <td></td>
             <td><input type="submit" th:value="${module} ? 'Modifier' : 'Ajouter'"/></td>
+        </tr>
+    </table>
+</form>
+
+<form th:fragment="eval-form" method="POST" action="">
+    <table>
+        <tr th:if="${modules != null and !modules.isEmpty()}">
+            <td><label for="module">Module</label></td>
+            <td>
+                <select id="module" name="module">
+                    <option th:each="module:${modules}" th:object="${module}" th:value="*{id}" th:text="*{label} + ' - ' + *{verboseName}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr th:replace="/frags/eval::select(consistency, 'Cohérence CM/TD/TP', ${eval} ? ${eval.consistency} : 0)"></tr>
+        <tr th:replace="/frags/eval::select(documentation, Documentation, ${eval} ? ${eval.documentation} : 0)"></tr>
+        <tr th:replace="/frags/eval::select(lecture, 'Cours Magistraux', ${eval} ? ${eval.lecture} : 0)"></tr>
+        <tr th:replace="/frags/eval::select(personalInterest, 'Interêt personnel', ${eval} ? ${eval.personalInterest} : 0)"></tr>
+        <tr th:replace="/frags/eval::select(practicalWork, 'Travaux Pratiques', ${eval} ? ${eval.practicalWork} : 0)"></tr>
+        <tr th:replace="/frags/eval::select(tutorial, 'Travaux Dirigés', ${eval} ? ${eval.tutorial} : 0)"></tr>
+        <tr th:replace="/frags/eval::select(workload, 'Charge de travail', ${eval} ? ${eval.workload} : 0)"></tr>
+        <tr>
+            <td><label for="comment">Commentaire</label></td>
+            <td><textarea id="comment" name="comment" th:text="${eval?.comment}"
+                          placeholder="Commentaire à propos du module..." maxlength="255"></textarea></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type='submit' th:value="${eval} ? 'Modifier' : 'Evaluer'"/></td>
         </tr>
     </table>
 </form>
