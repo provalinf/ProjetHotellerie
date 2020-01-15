@@ -2,8 +2,6 @@ package m2.info.models.user;
 
 import m2.info.config.BCryptManager;
 import m2.info.models.Module;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -47,10 +45,18 @@ public abstract class User implements UserDetails {
     @Column(name = "firstname", nullable = false, length = 32)
     protected String firstname;
 
-    @ManyToMany
-    @JoinTable( name="user_module",
-                joinColumns= @JoinColumn(name="user", referencedColumnName="id_user"),
-                inverseJoinColumns= @JoinColumn(name="module", referencedColumnName="id_module"))
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            })
+    @JoinTable(name = "module_user",
+            joinColumns = @JoinColumn(name = "module", nullable = false, updatable = false),
+            inverseJoinColumns = @JoinColumn(name = "user", nullable = false, updatable = false),
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Set<Module> modules = new HashSet<>();
 
     public User() {}

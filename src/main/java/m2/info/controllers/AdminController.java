@@ -112,7 +112,7 @@ public class AdminController {
                                      @RequestParam(value="verboseName") String verboseName,
                                      @RequestParam(value="label") String label,
                                      @RequestParam(value="description") String description) {
-        Module module= moduleManager.getModule(moduleId);
+        Module module = moduleManager.getModule(moduleId);
         module.setVerboseName(verboseName);
         module.setLabel(label);
         module.setDescription(description);

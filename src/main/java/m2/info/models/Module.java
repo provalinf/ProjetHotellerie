@@ -2,7 +2,7 @@ package m2.info.models;
 
 import m2.info.models.user.User;
 import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+import javax.persistence.CascadeType;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -27,11 +27,22 @@ public class Module {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @ManyToMany(mappedBy="modules")
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                            CascadeType.DETACH,
+                            CascadeType.MERGE,
+                            CascadeType.REFRESH,
+                            CascadeType.PERSIST
+                    })
+    @JoinTable(name = "module_user",
+            joinColumns = @JoinColumn(name = "user", nullable = false, updatable = false),
+            inverseJoinColumns = @JoinColumn(name = "module", nullable = false, updatable = false),
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy="module")
-    @Cascade(CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Set<Evaluation> evaluations = new HashSet<>();
 
     public Module() {}

@@ -46,7 +46,7 @@
         <td th:text="*{firstname}"></td>
         <td th:text="*{username}"></td>
         <td th:with="role=${user instanceof T(m2.info.models.user.Teacher) ? 'Enseignant' : 'Etudiant'}" th:text="${role}"></td>
-        <td><a th:href="@{/admin/teacher/} + *{id} + '/delete'">X</a></td>
+        <td><a th:href="@{/admin/user/} + *{id} + '/delete'">X</a></td>
     </tr>
     </tbody>
 </table>
