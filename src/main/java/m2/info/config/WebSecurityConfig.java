@@ -12,36 +12,37 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
+	private final UserDetailsService userDetailsService;
 
-    @Autowired
-    public WebSecurityConfig(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+	@Autowired
+	public WebSecurityConfig(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
 
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.authorizeRequests()
-                    .antMatchers("/admin/**").hasAuthority(Authorities.ADMIN.name())
-                    .antMatchers("/student/**").hasAuthority(Authorities.STUDENT.name())
-                    .antMatchers("/teacher/**").hasAuthority(Authorities.TEACHER.name())
-                    .and()
-                .formLogin()
-                    .loginPage("/index.html")
-                    .loginProcessingUrl("/perform_login")
-                    .failureUrl("/index.html?error=true")
-                    .successHandler(new AuthSuccessHandler())
-                    .and()
-                .logout()
-                    .logoutSuccessUrl("/index.html")
-                    .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID");
-    }
+	@Override
+	public void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable();
+		http.authorizeRequests()
+				.antMatchers("/static/assets","/css", "/images").permitAll()
+				.antMatchers("/admin/**").hasAuthority(Authorities.ADMIN.name())
+				.antMatchers("/student/**").hasAuthority(Authorities.STUDENT.name())
+				.antMatchers("/teacher/**").hasAuthority(Authorities.TEACHER.name())
+				.and()
+				.formLogin()
+				.loginPage("/index.html")
+				.loginProcessingUrl("/perform_login")
+				.failureUrl("/index.html?error=true")
+				.successHandler(new AuthSuccessHandler())
+				.and()
+				.logout()
+				.logoutSuccessUrl("/index.html")
+				.invalidateHttpSession(true)
+				.deleteCookies("JSESSIONID");
+	}
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-        auth.inMemoryAuthentication().withUser("admin").password("mdp_admin").authorities(Authorities.ADMIN.name());
-    }
+	@Override
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+		auth.inMemoryAuthentication().withUser("admin").password("mdp_admin").authorities(Authorities.ADMIN.name());
+	}
 }
