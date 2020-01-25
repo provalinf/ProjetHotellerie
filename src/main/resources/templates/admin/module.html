@@ -1,23 +1,91 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
-<head lang="fr">
-    <title th:object="${module}" th:text="*{label} + ' - ' + *{verboseName}"></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.thymeleaf.org ">
+<div th:object="${module}">
+	<head th:replace="/frags/includes::head(*{label}+' - '+*{verboseName})"></head>
+</div>
+
 <body>
-<header th:replace="/frags/header::admin-header"></header>
-<h1>Modifier le module</h1>
-<form th:replace="/frags/form::module-form"></form>
-<hr/>
-<h2>Etudiants inscrits :</h2>
-<ul th:each="student:${students}" th:object="${student}">
-    <li><a th:href="@{/admin/user/} + *{id}" th:text="*{id} + ' - ' + *{firstname} + '  ' + *{lastname}"></a></li>
-</ul>
-<hr/>
-<h2>Enseignants référents :</h2>
-<ul th:each="teacher:${teachers}" th:object="${teacher}">
-    <li><a th:href="@{/admin/user/} + *{id}" th:text="*{id} + ' - ' + *{firstname} + '  ' + *{lastname}"></a></li>
-</ul>
-<hr/>
+<div th:replace="/frags/includes::navbar(${'admin'})"></div>
+<header id="head" class="secondary"></header>
+
+
+<!-- container -->
+<div class="container">
+
+	<ol class="breadcrumb">
+		<li><a href="/admin/">Home</a></li>
+		<li><a href="/admin/modules/">Modules</a></li>
+		<li class="active">Module (
+			<th:block th:object="${module}" th:text="*{label} + ' - ' + *{verboseName}"/>
+			)
+		</li>
+	</ol>
+
+	<div class="row">
+
+		<!-- Article main content -->
+		<article class="col-sm-9 maincontent">
+
+			<header class="page-header">
+				<h1 class="page-title">Editer le module</h1>
+			</header>
+			<p th:object="${module}" th:text="*{label} + ' - ' + *{verboseName}"></p>
+			<br/>
+			<form th:replace="/frags/form::module-form"></form>
+
+		</article>
+		<!-- /Article -->
+
+		<!-- Sidebar -->
+		<aside class="col-sm-3 sidebar sidebar-right">
+
+			<div class="widget">
+				<h4>Information</h4>
+				<p class="text-justify">Modifier le module actuel.</p>
+			</div>
+			<div class="widget">
+				<h4>Attention</h4>
+				<p class="text-justify">Ce module est peut-être lié à des étudiants et administré par des enseignants.
+					Les modifications se répercuterons sur les utilisateurs.</p>
+			</div>
+
+		</aside>
+		<!-- /Sidebar -->
+
+		<article class="col-xs-12 maincontent">
+			<div class="jumbotron top-space">
+				<div class="container">
+
+					<div class="row">
+						<div class="col-md-6 col-sm-9 highlight">
+							<div class="h-caption"><h3><i class="fa fa-users fa-5"></i>Etudiants inscrits</h3></div>
+							<div class="h-body text-center" style="font-size: 18px; line-height:1.2">
+								<div th:if="${!students.isEmpty()}" th:each="student:${students}" th:object="${student}">
+									<p><a th:href="@{/admin/user/} + *{id}"
+										  th:text="*{id} + ' - ' + *{firstname} + '  ' + *{lastname}"></a></p>
+								</div>
+								<div th:if="${students.isEmpty()}"><p style="font-size: 16px">Aucun étudiant inscrit</p></div>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-9 highlight">
+							<div class="h-caption"><h3><i class="fa fa-users fa-5"></i>Enseignants référents</h3></div>
+							<div class="h-body text-center" style="font-size: 18px; line-height:1.2">
+								<div th:if="${!teachers.isEmpty()}" th:each="teacher:${teachers}" th:object="${teacher}">
+									<p><a th:href="@{/admin/user/} + *{id}"
+										  th:text="*{id} + ' - ' + *{firstname} + '  ' + *{lastname}"></a></p>
+								</div>
+								<div th:if="${teachers.isEmpty()}"><p style="font-size: 16px">Aucun enseignant inscrit</p></div>
+							</div>
+						</div>
+					</div>
+					<br/>
+				</div>
+			</div>
+		</article>
+	</div>
+</div>    <!-- /container -->
+
+<footer th:replace="/frags/includes::foot"></footer>
 </body>
 </html>

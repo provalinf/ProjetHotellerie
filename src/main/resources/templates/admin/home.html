@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org" lang="fr">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.thymeleaf.org" lang="fr">
 <head th:replace="/frags/includes::head(${'Panneau d''administration'})"></head>
 <body>
 <div th:replace="/frags/includes::navbar(${'admin'})"></div>
@@ -9,10 +10,26 @@
 		<div class="row">
 			<h1 class="lead">Organiser, Gérer, Modifier</h1>
 			<p class="tagline">Panneau d'administration</p>
-			<p><a href="/admin/modules/" class="btn btn-default btn-lg" role="button">Modules</a> <a href="/admin/users/" class="btn btn-default btn-lg" role="button">Utilisateurs</a></p>
+			<p><a href="/admin/modules/" class="btn btn-default btn-lg" role="button">Modules</a> <a
+					href="/admin/users/" class="btn btn-default btn-lg" role="button">Utilisateurs</a></p>
 		</div>
 	</div>
 </header>
+
+<div class="jumbotron top-space">
+	<div class="container">
+		<div class="container text-center">
+			<h2 class="thin"><i class="fa fa-info fa-2"></i> Vous êtes connecté en tant qu'administrateur</h2>
+			<p class="text-muted">
+				De ce fait, vous avez la possibilité d'ajouter/modifier/supprimer des modules ou des utilisateurs de
+				l'application.
+				<br/>Il vous est également possible de définir dans quels modules sont inscrits les utilisateurs
+				étudiants et quels modules administrent les utilisateurs enseignants.
+			</p>
+		</div>
+
+	</div>
+</div>
 
 <footer th:replace="/frags/includes::foot"></footer>
 </body>
