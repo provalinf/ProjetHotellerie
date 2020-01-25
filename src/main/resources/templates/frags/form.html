@@ -1,7 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
 <body>
+
 <form th:fragment="module-form" method="POST" action="">
+	<div class="row">
+		<div class="col-sm-6">
+			<input class="form-control" type="text" id="verboseName" name="verboseName" required="required"
+				   th:value="${module?.verboseName}" maxlength="32"
+				   pattern="[A-Za-z0-9àéèêë]( ?[A-Za-z0-9àéèêë])+"
+				   title="2 caractères min., alphanumériques éventuellement séparés par un espace" placeholder="Nom"/>
+		</div>
+		<div class="col-sm-6">
+			<input class="form-control" type="text" id="label" name="label" required="required"
+				   th:value="${module?.label}" maxlength="8"
+				   pattern="[A-Za-z0-9àéèêë]( ?[A-Za-z0-9àéèêë])+"
+				   title="2 caractères min., alphanumériques éventuellement séparés par un espace" placeholder="Libellé"/>
+		</div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-sm-12">
+			<textarea id="description" name="description" th:text="${module?.description}"
+					  maxlength="255" placeholder="Taper une description du module ici..." class="form-control" rows="9"></textarea>
+		</div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-sm-6"></div>
+		<div class="col-sm-6 text-right">
+			<input class="btn btn-action" type="submit" th:value="${module} ? 'Modifier le module' : 'Ajouter le module'"/>
+		</div>
+	</div>
+</form>
+
+
+<!--<form th:fragment="module-form" method="POST" action="">
     <table>
         <tr>
             <td><label for="verboseName">Nom *</label></td>
@@ -27,7 +60,7 @@
             <td><input type="submit" th:value="${module} ? 'Modifier' : 'Ajouter'"/></td>
         </tr>
     </table>
-</form>
+</form>-->
 
 <form th:fragment="eval-form" method="POST" action="">
     <table>

@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
-<head lang="fr">
-    <meta charset="UTF-8"/>
-    <title>Panneau administrateur</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org" lang="fr">
+<head th:replace="/frags/includes::head(${'Panneau d''administration'})"></head>
 <body>
-<header th:replace="/frags/header::admin-header"></header>
+<div th:replace="/frags/includes::navbar(${'admin'})"></div>
+
+<header id="head">
+	<div class="container">
+		<div class="row">
+			<h1 class="lead">Organiser, Gérer, Modifier</h1>
+			<p class="tagline">Panneau d'administration</p>
+			<p><a href="/admin/modules/" class="btn btn-default btn-lg" role="button">Modules</a> <a href="/admin/users/" class="btn btn-default btn-lg" role="button">Utilisateurs</a></p>
+		</div>
+	</div>
+</header>
+
+<footer th:replace="/frags/includes::foot"></footer>
 </body>
 </html>
