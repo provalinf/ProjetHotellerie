@@ -3,16 +3,16 @@
 	  xsi:schemaLocation="http://www.thymeleaf.org ">
 <body>
 <div th:fragment="admin-nav">
+	<li><a href="/admin/">Accueil</a></li>
 	<li><a href="/admin/modules/">Modules</a></li>
 	<li><a href="/admin/users/">Utilisateurs</a></li>
 </div>
-<header th:fragment="student-nav">
+<div th:fragment="student-nav">
 	<li><a href="/student/">Evaluations</a></li>
-	<li><a href="/logout">Déconnexion</a></li>
-</header>
-<header th:fragment="teacher-nav">
+</div>
+<div th:fragment="teacher-nav">
 	<li><a href="/teacher/">Modules</a></li>
 	<li><a href="/logout">Déconnexion</a></li>
-</header>
+</div>
 </body>
 </html>

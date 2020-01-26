@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.thymeleaf.org ">
 <body>
 
 <form th:fragment="module-form" method="POST" action="">
@@ -14,26 +15,74 @@
 			<input class="form-control" type="text" id="label" name="label" required="required"
 				   th:value="${module?.label}" maxlength="8"
 				   pattern="[A-Za-z0-9àéèêë]( ?[A-Za-z0-9àéèêë])+"
-				   title="2 caractères min., alphanumériques éventuellement séparés par un espace" placeholder="Libellé"/>
+				   title="2 caractères min., alphanumériques éventuellement séparés par un espace"
+				   placeholder="Libellé"/>
 		</div>
 	</div>
 	<br/>
 	<div class="row">
 		<div class="col-sm-12">
 			<textarea id="description" name="description" th:text="${module?.description}"
-					  maxlength="255" placeholder="Taper une description du module ici..." class="form-control" rows="9"></textarea>
+					  maxlength="255" placeholder="Taper une description du module ici..." class="form-control"
+					  rows="9"></textarea>
 		</div>
 	</div>
 	<br/>
 	<div class="row">
 		<div class="col-sm-6"></div>
 		<div class="col-sm-6 text-right">
-			<input class="btn btn-action" type="submit" th:value="${module} ? 'Modifier le module' : 'Ajouter le module'"/>
+			<input class="btn btn-action" type="submit"
+				   th:value="${module} ? 'Modifier le module' : 'Ajouter le module'"/>
 		</div>
 	</div>
 </form>
 
 <form th:fragment="eval-form" method="POST" action="">
+	<div class="row">
+		<div class="form-group">
+			<div class="col-sm-12">
+				<label for="module">Module</label>
+				<select class="form-control" id="module" name="module">
+					<option th:each="module:${modules}" th:object="${module}" th:value="*{id}"
+							th:text="*{label} + ' - ' + *{verboseName}"></option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<br/>
+	<div class="row">
+		<th:block
+				th:replace="/frags/eval::select(consistency, 'Cohérence CM/TD/TP', ${eval} ? ${eval.consistency} : 0)"/>
+		<th:block th:replace="/frags/eval::select(documentation, Documentation, ${eval} ? ${eval.documentation} : 0)"/>
+		<th:block th:replace="/frags/eval::select(lecture, 'Cours Magistraux', ${eval} ? ${eval.lecture} : 0)"/>
+	</div>
+	<div class="row">
+		<th:block
+				th:replace="/frags/eval::select(personalInterest, 'Interêt personnel', ${eval} ? ${eval.personalInterest} : 0)"/>
+		<th:block
+				th:replace="/frags/eval::select(practicalWork, 'Travaux Pratiques', ${eval} ? ${eval.practicalWork} : 0)"/>
+		<th:block th:replace="/frags/eval::select(tutorial, 'Travaux Dirigés', ${eval} ? ${eval.tutorial} : 0)"/>
+		<th:block th:replace="/frags/eval::select(workload, 'Charge de travail', ${eval} ? ${eval.workload} : 0)"/>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-sm-12">
+			<textarea id="comment" name="comment" th:text="${eval?.comment}"
+					  maxlength="255" placeholder="Taper un commentaire à propos du module..." class="form-control"
+					  rows="9"></textarea>
+		</div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-sm-6"></div>
+		<div class="col-sm-6 text-right">
+			<input class="btn btn-action" type="submit"
+				   th:value="${eval} ? ${'Modifier l''évaluation'} : 'Évaluer ce module'"/>
+		</div>
+	</div>
+</form>
+
+<!--<form th:fragment="eval-form" method="POST" action="">
     <table>
         <tr th:if="${modules != null and !modules.isEmpty()}">
             <td><label for="module">Module</label></td>
@@ -60,9 +109,7 @@
             <td><input type='submit' th:value="${eval} ? 'Modifier' : 'Evaluer'"/></td>
         </tr>
     </table>
-</form>
-
-
+</form>-->
 
 
 <form th:fragment="user-form" method="POST" action="">
@@ -70,11 +117,12 @@
 		<div class="col-sm-12" th:if="${user == null}">
 			<input class="form-control" type="text" id="id" name="id" required="required"
 				   pattern="[A-Za-z0-9]*" th:value="${user?.id}"
-				   minlength="11" maxlength="11" title="11 caractères alphanumériques" placeholder="Identifiant national"/>
+				   minlength="11" maxlength="11" title="11 caractères alphanumériques"
+				   placeholder="Identifiant national"/>
 			<br/>
 		</div>
 		<div class="col-sm-6">
-			<input class="form-control"  id="lastname" name="lastname" maxlength="16" required="required"
+			<input class="form-control" id="lastname" name="lastname" maxlength="16" required="required"
 				   pattern="[A-Za-zàéèêë]+-?[A-Za-zàéèêë]+" th:value="${user?.lastname}"
 				   title="2 caractères min., alphabétiques éventuellement séparés par un tiret" placeholder="Nom"/>
 		</div>
@@ -91,7 +139,7 @@
 			<label for="teacherAuth">Enseignant</label>
 		</div>
 		<div class="col-sm-2">
-				<input type="radio" id="studentAuth" value="STUDENT" name="authority" checked="checked"/>
+			<input type="radio" id="studentAuth" value="STUDENT" name="authority" checked="checked"/>
 			<label for="studentAuth">Étudiant</label>
 		</div>
 	</div>
@@ -99,14 +147,11 @@
 	<div class="row">
 		<div class="col-sm-6"></div>
 		<div class="col-sm-6 text-right">
-			<input class="btn btn-action" type="submit" th:value="${module} ? ${'Modifier l''utilisateur'} : ${'Ajouter l''utilisateur'}"/>
+			<input class="btn btn-action" type="submit"
+				   th:value="${module} ? ${'Modifier l''utilisateur'} : ${'Ajouter l''utilisateur'}"/>
 		</div>
 	</div>
 </form>
-
-
-
-
 
 
 <!--<form th:fragment="user-form" method="POST" action="">
