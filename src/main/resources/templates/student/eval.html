@@ -1,50 +1,26 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
-<div th:object="${module}">
-	<head th:replace="/frags/includes::head(*{label}+' - '+*{verboseName})"></head>
-</div>
-
+<head th:replace="/frags/includes::head(${module.verboseName} + ' - Evaluation')"></head>
 <body>
 <div th:replace="/frags/includes::navbar(${'student'})"></div>
 <header id="head" class="secondary"></header>
-
-<!-- container -->
 <div class="container">
-
-	<ol class="breadcrumb">
-		<li><a href="/student/">Évaluations</a></li>
-		<li class="active">
-			<th:block th:object="${module}" th:text="*{label} + ' - ' + *{verboseName}"/>
-		</li>
-	</ol>
-
 	<div class="row">
-
-		<!-- Article main content -->
 		<article class="col-sm-9 maincontent">
-
 			<header class="page-header">
-				<h1 class="page-title">Modifier l'évaluation d'un module</h1>
+				<h1 class="page-title" th:object="${module}" th:text="*{label} + ' - ' + *{verboseName}"></h1>
 			</header>
-			<p th:object="${module}" th:text="*{label} + ' - ' + *{verboseName}"></p>
 			<form th:replace="/frags/form::eval-form"></form>
-
 		</article>
-		<!-- /Article -->
-
-		<!-- Sidebar -->
 		<aside class="col-sm-3 sidebar sidebar-right">
-
 			<div class="widget">
 				<h4>Information</h4>
-				<p>Vous pouvez sur cette page, modifier l'évaluation à un module que vous avez apporté.</p>
+				<p>Ce formulaire vous permet de modifier l'évaluation de ce module.</p>
 			</div>
 
 		</aside>
-		<!-- /Sidebar -->
 	</div>
-</div>    <!-- /container -->
-
+</div>
 <footer th:replace="/frags/includes::foot"></footer>
 </body>
 </html>

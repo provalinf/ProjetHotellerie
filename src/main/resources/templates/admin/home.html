@@ -4,7 +4,6 @@
 <head th:replace="/frags/includes::head(${'Panneau d''administration'})"></head>
 <body>
 <div th:replace="/frags/includes::navbar(${'admin'})"></div>
-
 <header id="head">
 	<div class="container">
 		<div class="row">
@@ -15,22 +14,19 @@
 		</div>
 	</div>
 </header>
-
 <div class="jumbotron top-space">
 	<div class="container">
 		<div class="container text-center">
 			<h2 class="thin"><i class="fa fa-info fa-2"></i> Vous êtes connecté en tant qu'administrateur</h2>
 			<p class="text-muted">
-				De ce fait, vous avez la possibilité d'ajouter/modifier/supprimer des modules ou des utilisateurs de
-				l'application.
-				<br/>Il vous est également possible de définir dans quels modules sont inscrits les utilisateurs
-				étudiants et quels modules administrent les utilisateurs enseignants.
+				Vous pouvez ajouter/modifier/supprimer des modules d'enseignement et/ou des utilisateurs au sein de la base de données.
+				<br/>
+				Vous avez également la possibilité de lier entre eux les utilisateurs et les modules
+				afin de définir les enseignants en charge de ces dernier ou les étudiants qui y sont inscrits.
 			</p>
 		</div>
-
 	</div>
 </div>
-
 <footer th:replace="/frags/includes::foot"></footer>
 </body>
 </html>

@@ -2,84 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.thymeleaf.org ">
 <div th:object="${user}">
-	<head th:replace="/frags/includes::head(*{firstname} + ' ' + *{lastname})"></head>
+	<head th:replace="/frags/includes::head('Utilisateur - ' + *{firstname} + ' ' + *{lastname})"></head>
 </div>
-
 <body>
 <div th:replace="/frags/includes::navbar(${'admin'})"></div>
 <header id="head" class="secondary"></header>
-
-
-<!-- container -->
 <div class="container">
-
-	<ol class="breadcrumb">
-		<li><a href="/admin/">Accueil</a></li>
-		<li><a href="/admin/users/">Utilisateurs</a></li>
-		<li class="active">
-			<th:block th:object="${user}" th:text="*{firstname} + ' ' + *{lastname}"/>
-		</li>
-	</ol>
-
 	<div class="row">
-
-		<!-- Article main content -->
-		<article class="col-sm-9 maincontent" th:if="${!unlinked_modules.isEmpty()}">
-
-			<header class="page-header">
-				<h1 class="page-title">Lier un module</h1>
-			</header>
-
-			<br/>
-			<form method="POST" th:action="'/admin/user/' + ${user.id} + '/link'">
-				<div class="row">
-					<div class="col-sm-12">
-						<select class="form-control" name="module">
-							<option th:each="module: ${unlinked_modules}" th:object="${module}"
-									th:value="*{id}" th:text="*{label} + ' - ' + *{verboseName}"></option>
-						</select>
-					</div>
-				</div>
-				<br/>
-				<div class="row">
-					<div class="col-sm-6"></div>
-					<div class="col-sm-6 text-right">
-						<input class="btn btn-action" type="submit" value="Lier ce module"/>
-					</div>
-				</div>
-			</form>
-		</article>
-		<!-- /Article -->
-
-		<!-- Article main content -->
 		<article class="col-sm-9 maincontent">
-
 			<header class="page-header">
-				<h1 class="page-title">Modifier un utilisateur</h1>
+				<h1 class="page-title" th:object="${user}" th:text="*{firstname} + ' ' + *{lastname}"></h1>
 			</header>
-			<p th:object="${user}" th:text="*{firstname} + ' ' + *{lastname}"></p>
-			<br/>
 			<form th:replace="/frags/form::user-form"></form>
-
 		</article>
-		<!-- /Article -->
-
-		<!-- Sidebar -->
 		<aside class="col-sm-3 sidebar sidebar-right">
-
 			<div class="widget">
 				<h4>Information</h4>
-				<p>Modifier un utilisateur en base.</p>
+				<p>Ce formulaire vous permet de modifier les informations relatives à cet utilisateur.</p>
 			</div>
-			<div class="widget">
-				<h4>Attention</h4>
-				<p>Les modifications apportées à cet utilisateur risque d'impacter l'accès aux dépôts d'avis et de
-					notes.</p>
-			</div>
-
 		</aside>
-		<!-- /Sidebar -->
-
 		<article class="col-xs-12 maincontent">
 			<div class="jumbotron top-space">
 				<div class="container">
@@ -117,10 +58,43 @@
 				</div>
 			</div>
 		</article>
+		<th:block th:if="${!unlinked_modules.isEmpty()}">
+			<article class="col-sm-9 maincontent">
+				<header class="page-header">
+					<h1 class="page-title">Lier un module</h1>
+				</header>
+				<br/>
+				<form method="POST" th:action="'/admin/user/' + ${user.id} + '/link'">
+					<div class="row">
+						<div class="col-sm-12">
+							<select class="form-control" name="module">
+								<option th:each="module: ${unlinked_modules}" th:object="${module}"
+										th:value="*{id}" th:text="*{label} + ' - ' + *{verboseName}"></option>
+							</select>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-sm-6"></div>
+						<div class="col-sm-6 text-right">
+							<input class="btn btn-action" type="submit" value="Lier ce module"/>
+						</div>
+					</div>
+				</form>
+			</article>
+			<aside class="col-sm-3 sidebar sidebar-right">
+				<div class="widget">
+					<h4>Information</h4>
+					<p th:with="text=${user instanceof T(m2.info.models.user.Teacher) ?
+					'de définir cet enseignant en tant que gérant d''un module' :
+					'd''inscrire cet étudiant à un module'}"
+					   th:text="${'Ce formulaire vous permet ' + text}">
+					</p>
+				</div>
+			</aside>
+		</th:block>
 	</div>
-</div>    <!-- /container -->
-
-
+</div>
 <footer th:replace="/frags/includes::foot"></footer>
 </body>
 </html>

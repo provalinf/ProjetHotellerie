@@ -1,43 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
-<div th:object="${module}">
-	<head th:replace="/frags/includes::head(*{label}+' - '+*{verboseName})"></head>
-</div>
-
+	<head th:include="/frags/includes::head(${module.verboseName} + ' - Evaluations')"></head>
 <body>
 <div th:replace="/frags/includes::navbar(${'teacher'})"></div>
 <header id="head" class="secondary"></header>
-
-
-<!-- container -->
-<div class="container">
-
-	<ol class="breadcrumb">
-		<li><a href="/teacher/">Évaluations</a></li>
-		<li class="active">
-			<th:block th:object="${module}" th:text="*{label} + ' - ' + *{verboseName}"/>
-		</li>
-	</ol>
-
-	<div class="row">
-		<aside class="col-sm-12 sidebar sidebar-right">
-
-			<div class="widget">
-				<h4>Information</h4>
-				<p>Vous pouvez sur cette page, consulter les détails des évaluations que vous avez reçu pour ce module.<br/><br/>
-					Les notes vont de 1 pour passable à 5 pour très satisfait.</p>
-			</div>
-
-		</aside>
-		<!-- /Sidebar -->
-	</div>
-</div>    <!-- /container -->
-
-
 <div class="jumbotron">
 	<div class="container text-center">
-
-		<div th:if="${evals.isEmpty()}">Aucune évaluation pour ce module</div>
+		<div th:if="${evals.isEmpty()}">Aucune évaluation disponible pour ce module</div>
 		<div th:if="${!evals.isEmpty()}">
 			<h3 class="text-center thin">Évaluations disponibles</h3>
 			<br/>
@@ -72,7 +41,6 @@
 		</div>
 	</div>
 </div>
-
 <footer th:replace="/frags/includes::foot"></footer>
 </body>
 </html>

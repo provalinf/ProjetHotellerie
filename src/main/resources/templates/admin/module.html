@@ -1,61 +1,27 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.thymeleaf.org ">
-<div th:object="${module}">
-	<head th:replace="/frags/includes::head(*{label}+' - '+*{verboseName})"></head>
-</div>
-
+<head th:replace="/frags/includes::head('Module - '+ ${module.verboseName})"></head>
 <body>
 <div th:replace="/frags/includes::navbar(${'admin'})"></div>
 <header id="head" class="secondary"></header>
-
-
-<!-- container -->
 <div class="container">
-
-	<ol class="breadcrumb">
-		<li><a href="/admin/">Accueil</a></li>
-		<li><a href="/admin/modules/">Modules</a></li>
-		<li class="active">
-			<th:block th:object="${module}" th:text="*{label} + ' - ' + *{verboseName}"/>
-		</li>
-	</ol>
-
 	<div class="row">
-
-		<!-- Article main content -->
 		<article class="col-sm-9 maincontent">
-
 			<header class="page-header">
-				<h1 class="page-title">Editer le module</h1>
+				<h1 class="page-title" th:object="${module}" th:text="*{label} + ' - ' + *{verboseName}"></h1>
 			</header>
-			<p th:object="${module}" th:text="*{label} + ' - ' + *{verboseName}"></p>
-			<br/>
 			<form th:replace="/frags/form::module-form"></form>
-
 		</article>
-		<!-- /Article -->
-
-		<!-- Sidebar -->
 		<aside class="col-sm-3 sidebar sidebar-right">
-
 			<div class="widget">
 				<h4>Information</h4>
-				<p class="text-justify">Modifier le module actuel.</p>
+				<p class="text-justify">Ce formulaire vous permet de modifier les informations relatives à ce module.</p>
 			</div>
-			<div class="widget">
-				<h4>Attention</h4>
-				<p class="text-justify">Ce module est peut-être lié à des étudiants et administré par des enseignants.
-					Les modifications se répercuterons sur les utilisateurs.</p>
-			</div>
-
 		</aside>
-		<!-- /Sidebar -->
-
 		<article class="col-xs-12 maincontent">
 			<div class="jumbotron top-space">
 				<div class="container">
-
 					<div class="row">
 						<div class="col-md-6 col-sm-9 highlight">
 							<div class="h-caption"><h3><i class="fa fa-users fa-5"></i>Etudiants inscrits</h3></div>
@@ -74,7 +40,7 @@
 									<p><a th:href="@{/admin/user/} + *{id}"
 										  th:text="*{id} + ' - ' + *{firstname} + '  ' + *{lastname}"></a></p>
 								</div>
-								<div th:if="${teachers.isEmpty()}"><p style="font-size: 16px">Aucun enseignant inscrit</p></div>
+								<div th:if="${teachers.isEmpty()}"><p style="font-size: 16px">Aucun enseignant référent</p></div>
 							</div>
 						</div>
 					</div>
@@ -83,8 +49,7 @@
 			</div>
 		</article>
 	</div>
-</div>    <!-- /container -->
-
+</div>
 <footer th:replace="/frags/includes::foot"></footer>
 </body>
 </html>

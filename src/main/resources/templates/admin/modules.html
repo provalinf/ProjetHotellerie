@@ -1,58 +1,31 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.thymeleaf.org ">
-<!--<head lang="fr">
-    <title>Panneau modules</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>-->
-
 <head th:replace="/frags/includes::head(${'Panneau de modules'})"></head>
 <body>
-
 <div th:replace="/frags/includes::navbar(${'admin'})"></div>
 <header id="head" class="secondary"></header>
-<!-- container -->
 <div class="container">
-
-	<ol class="breadcrumb">
-		<li><a href="/admin/">Accueil</a></li>
-		<li class="active">Modules</li>
-	</ol>
-
 	<div class="row">
-
-		<!-- Article main content -->
 		<article class="col-sm-9 maincontent">
-
 			<header class="page-header">
 				<h1 class="page-title">Ajouter un nouveau module</h1>
 			</header>
-
 			<br/>
 			<form th:replace="/frags/form::module-form"></form>
-
 		</article>
-		<!-- /Article -->
-
-		<!-- Sidebar -->
 		<aside class="col-sm-3 sidebar sidebar-right">
-
 			<div class="widget">
 				<h4>Information</h4>
-				<p>Créer et ajouter un nouveau module en base. <br/> Ce module pourra par la suite être lié aux
-					étudiants qui y sont inscrits et aux enseignants qui l'administrent.</p>
+				<p>Ce formulaire vous permet d'ajouter un nouveau module en base.</p>
 			</div>
-
 		</aside>
-		<!-- /Sidebar -->
-
 		<article class="col-xs-12 maincontent">
 			<div class="jumbotron top-space">
 				<div class="container">
-
-					<div th:if="${modules.isEmpty()}">Aucun module disponible</div>
+					<div th:if="${modules.isEmpty()}">Aucun module</div>
 					<div th:if="${!modules.isEmpty()}">
-						<h3 class="text-center thin">Modules disponibles</h3>
+						<h3 class="text-center thin">Modules</h3>
 						<br/>
 						<div class="table-responsive">
 							<table class="table table-striped table-bordered">
@@ -83,8 +56,7 @@
 			</div>
 		</article>
 	</div>
-</div>    <!-- /container -->
-
+</div>
 <footer th:replace="/frags/includes::foot"></footer>
 </body>
 </html>

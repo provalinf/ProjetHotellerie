@@ -1,67 +1,43 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	  xsi:schemaLocation="http://www.thymeleaf.org ">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
 <div th:object="${student}">
-	<head th:replace="/frags/includes::head(*{firstname}+' - '+*{lastname})"></head>
+	<head th:replace="/frags/includes::head(Accueil)"></head>
 </div>
-
 <body>
 <div th:replace="/frags/includes::navbar(${'student'})"></div>
 <header id="head" class="secondary"></header>
-
-
-<!-- container -->
-<div class="container">
-
-	<ol class="breadcrumb">
-		<li class="active">Évaluations</li>
-	</ol>
-
+<div class="container" th:if="${!modules.isEmpty()}">
 	<div class="row">
-
-		<!-- Article main content -->
-		<article class="col-sm-9 maincontent" th:if="${!modules.isEmpty()}">
-
+		<article class="col-sm-9 maincontent">
 			<header class="page-header">
 				<h1 class="page-title">Évaluer un module</h1>
 			</header>
-
-			<br/>
 			<form th:replace="/frags/form::eval-form"></form>
-
 		</article>
-		<!-- /Article -->
-
-		<!-- Sidebar -->
 		<aside class="col-sm-3 sidebar sidebar-right" th:if="${!modules.isEmpty()}">
-
 			<div class="widget">
 				<h4>Information</h4>
-				<p>Vous pouvez sur cette page, évaluer un module auquel vous êtes inscrits.<br/><br/>
-					Pour cela saisisser une note de <br/>1 (passable) à 5 (très satisfait), aux critères correspondants,
-					et ajouter éventuellement une description.</p>
+				<p>Ce formulaire vous permet d'évaluer un module auquel vous êtes inscrit.
+					<br/><br/>
+					Pour ce faire, veuillez saisir une note de 1 (passable) à 5 (très satisfait) pour chaque critère,
+					vous pouvez également rédiger un commentaire si vous le souhaitez.</p>
 			</div>
-
 		</aside>
 		<aside class="col-sm-12 sidebar sidebar-right" th:if="${modules.isEmpty()}">
-
 			<div class="widget">
 				<h4>Information</h4>
 				<p>Vous pouvez sur cette page, consulter les détails des modules que vous avez évalué.<br/><br/>
 					Les notes vont de 1 pour passable à 5 pour très satisfait.</p>
 			</div>
-
 		</aside>
-		<!-- /Sidebar -->
 	</div>
-</div>    <!-- /container -->
-
+</div>
 <div class="jumbotron">
 		<div class="container text-center">
 
-			<div th:if="${evals.isEmpty()}">Aucun module évalué</div>
+			<div th:if="${evals.isEmpty()}">Vous n'avez encore évalué aucun module</div>
 			<div th:if="${!evals.isEmpty()}">
-				<h3 class="text-center thin">Évaluations</h3>
+				<h3 class="text-center thin">Les évaluation que vous avez réalisées</h3>
 				<br/>
 				<div class="table-responsive">
 					<table class="table table-striped table-bordered">

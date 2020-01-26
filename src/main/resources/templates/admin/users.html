@@ -4,46 +4,24 @@
 <body>
 <div th:replace="/frags/includes::navbar(${'admin'})"></div>
 <header id="head" class="secondary"></header>
-
-
-<!-- container -->
 <div class="container">
-
-	<ol class="breadcrumb">
-		<li><a href="/admin/">Accueil</a></li>
-		<li class="active">Utilisateurs</li>
-	</ol>
-
 	<div class="row">
-
-		<!-- Article main content -->
 		<article class="col-sm-9 maincontent">
-
 			<header class="page-header">
 				<h1 class="page-title">Ajouter un nouvel utilisateur</h1>
 			</header>
-
 			<br/>
 			<form th:replace="/frags/form::user-form"></form>
-
 		</article>
-		<!-- /Article -->
-
-		<!-- Sidebar -->
 		<aside class="col-sm-3 sidebar sidebar-right">
-
 			<div class="widget">
 				<h4>Information</h4>
-				<p>Créer et ajouter un nouvel utilisateur en base. <br/> Cet utilisateur en fonction de son type (Étudiant, Enseignant) pourra par la suite accéder aux dépôts d'avis et notes.</p>
+				<p>Ce formulaire vous permet d'ajouter un nouvel utilisateur en base.</p>
 			</div>
-
 		</aside>
-		<!-- /Sidebar -->
-
 		<article class="col-xs-12 maincontent">
 			<div class="jumbotron top-space">
 				<div class="container">
-
 					<div th:if="${users.isEmpty()}">Aucun utilisateur enregistré</div>
 					<div th:if="${!users.isEmpty()}">
 						<h3 class="text-center thin">Utilisateurs enregistrés</h3>
@@ -81,37 +59,7 @@
 			</div>
 		</article>
 	</div>
-</div>    <!-- /container -->
-
-
+</div>
 <footer th:replace="/frags/includes::foot"></footer>
-
-<!--<h1>Ajouter un nouvel utilisateur</h1>
-<form th:replace="/frags/form::user-form"></form>
-<hr/>
-<table>
-    <caption>Utilisateurs</caption>
-    <thead>
-    <tr>
-        <th>Identifiant national</th>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Identifiant</th>
-        <th>Rôle</th>
-        <th>Supprimer</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user: ${users}" th:object="${user}">
-        <td><a th:text="*{id}" th:href="@{/admin/user/} + *{id}"></a></td>
-        <td th:text="*{lastname}"></td>
-        <td th:text="*{firstname}"></td>
-        <td th:text="*{username}"></td>
-        <td th:with="role=${user instanceof T(m2.info.models.user.Teacher) ? 'Enseignant' : 'Etudiant'}" th:text="${role}"></td>
-        <td><a th:href="@{/admin/user/} + *{id} + '/delete'">X</a></td>
-    </tr>
-    </tbody>
-</table>
-<hr/>-->
 </body>
 </html>

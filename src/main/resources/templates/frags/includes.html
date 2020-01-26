@@ -11,93 +11,42 @@
 	<link rel="stylesheet" href="/../assets/css/main.css" media="screen"/>
 </head>
 
-
 <div th:fragment="navbar(usertype)" class="navbar navbar-inverse navbar-fixed-top headroom">
 	<div class="container">
 		<div class="navbar-header">
-			<!-- Button for smallest screens -->
-			<a class="navbar-brand" th:href="'/' + ${usertype} + '/'"><p style="margin: 10px 0 0;">Application de notation</p></a>
+			<a class="navbar-brand" th:href="'/' + ${usertype} + '/'"><p style="margin: 10px 0 0;">Accueil</p></a>
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav pull-right">
-				<th:block th:if="${usertype == 'admin'}" th:include="/frags/nav::admin-nav"/>
-				<th:block th:if="${usertype == 'student'}" th:include="/frags/nav::student-nav"/>
-				<th:block th:if="${usertype == 'teacher'}" th:include="/frags/nav::teacher-nav"/>
-				<!--<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="sidebar-left.html">Left Sidebar</a></li>
-						<li><a href="sidebar-right.html">Right Sidebar</a></li>
-					</ul>
-				</li>-->
+				<th:block th:if="${usertype == 'admin'}">
+					<li><a href="/admin/modules/">Modules</a></li>
+					<li><a href="/admin/users/">Utilisateurs</a></li>
+				</th:block>
 				<li class="active"><a class="btn" href="/logout">Déconnexion</a></li>
 			</ul>
-		</div><!--/.nav-collapse -->
+		</div>
 	</div>
 </div>
 
-
-<footer th:fragment="foot">
-	<footer id="footer" class="top-space">
-
+<footer th:fragment="foot" id="footer" class="top-space">
 		<div class="footer1">
 			<div class="container">
 				<div class="row">
-
-					<div class="col-md-3 widget">
-						<h3 class="widget-title">Contact</h3>
-						<div class="widget-body">
-							<p>+33 3 81 66 66 66<br/>
-								<a href="mailto:#">serviceinfo@univ-fcomte.fr</a><br/>
-								<br/>
-								1 Rue Claude Goudimel, 25000 Besançon
-							</p>
-						</div>
-					</div>
-
-					<div class="col-md-3 widget">
-						<h3 class="widget-title"></h3>
-						<div class="widget-body">
-							<p class="follow-me-icons clearfix">
-								<a href=""><i class="fa fa-twitter fa-2"></i></a>
-								<a href=""><i class="fa fa-dribbble fa-2"></i></a>
-								<a href=""><i class="fa fa-github fa-2"></i></a>
-								<a href=""><i class="fa fa-facebook fa-2"></i></a>
-							</p>
-						</div>
-					</div>
-
 					<div class="col-md-6 widget">
 						<h3 class="widget-title">Information</h3>
 						<div class="widget-body">
-							<p>Application de notation semestriel et annuel. Cette plateforme permet aux étudiants de
-								faire
+							<p>Application de notation semestriel. Cette plateforme permet aux étudiants de faire
 								un retour sur les cours qu'ils ont suivi durant le semestre ou l'année écoulée.</p>
-							<p>Les enseignants et intervenant peuvent ainsi visualiser les points appréciés et ceux à
+							<p>Les enseignants et intervenants peuvent ainsi visualiser les points appréciés et ceux à
 								améliorer pour l'année suivante.</p>
 						</div>
 					</div>
-
-				</div> <!-- /row of widgets -->
+				</div>
 			</div>
 		</div>
-
 		<div class="footer2">
 			<div class="container">
 				<div class="row">
-
-					<div class="col-md-6 widget">
-						<div class="widget-body">
-							<p class="simplenav">
-								<a href="#">Home</a> |
-								<a href="about.html">About</a> |
-								<a href="sidebar-right.html">Sidebar</a> |
-								<a href="contact.html">Contact</a> |
-								<b><a href="signup.html">Sign up</a></b>
-							</p>
-						</div>
-					</div>
-
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="text-right">
@@ -105,12 +54,9 @@
 							</p>
 						</div>
 					</div>
-
-				</div> <!-- /row of widgets -->
+				</div>
 			</div>
 		</div>
-	</footer>
-
 	<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	<script src="/../assets/js/headroom.min.js"></script>

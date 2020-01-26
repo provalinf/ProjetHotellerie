@@ -8,24 +8,8 @@
 	<link rel="stylesheet" href="assets/css/main.css" media="screen">
 </head>
 <body>
-
-<div class="navbar navbar-inverse navbar-fixed-top headroom">
-	<div class="container">
-		<div class="navbar-header">
-			<!-- Button for smallest screens -->
-			<a class="navbar-brand" href="index.html"><p style="margin: 10px 0 0;">Application de notation</p></a>
-		</div>
-	</div>
-</div>
-<!-- /.navbar -->
-<header id="head" class="secondary"></header>
-
-<!-- container -->
 <div class="container">
-
 	<div class="row">
-
-		<!-- Article main content -->
 		<article class="col-xs-12 maincontent">
 			<header class="page-header">
 				<h1 class="page-title">Authentification</h1>
@@ -46,10 +30,7 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<h3 class="thin text-center">Connectez-vous avec votre compte universitaire</h3>
-						<p class="text-center text-muted">Si vous ne parvenez pas à vous connecter, veuillez
-							contacter le service informatique par <a href="#">cet intermédiaire</a></p>
 						<hr>
-
 						<form action="perform_login" method='POST'>
 							<div class="top-margin">
 								<label for="username">Identifiant <span class="text-danger">*</span></label>
@@ -59,13 +40,8 @@
 								<label for="password">Mot de passe <span class="text-danger">*</span></label>
 								<input type='password' id="password" name='password' class="form-control">
 							</div>
-
 							<hr>
-
 							<div class="row">
-								<div class="col-lg-8">
-									<b><a href="">Mot de passe oublié ?</a></b>
-								</div>
 								<div class="col-lg-4 text-right">
 									<button class="btn btn-action" name="submit" type="submit">Connexion</button>
 								</div>
@@ -73,91 +49,15 @@
 						</form>
 					</div>
 				</div>
-
 			</div>
-
 		</article>
-		<!-- /Article -->
-
 	</div>
-</div>    <!-- /container -->
-
-<footer id="footer" class="top-space">
-
-	<div class="footer1">
-		<div class="container">
-			<div class="row">
-
-				<div class="col-md-3 widget">
-					<h3 class="widget-title">Contact</h3>
-					<div class="widget-body">
-						<p>+33 3 81 66 66 66<br>
-							<a href="mailto:#">serviceinfo@univ-fcomte.fr</a><br>
-							<br>
-							1 Rue Claude Goudimel, 25000 Besançon
-						</p>
-					</div>
-				</div>
-
-				<div class="col-md-3 widget">
-					<h3 class="widget-title"></h3>
-					<div class="widget-body">
-						<p class="follow-me-icons clearfix">
-							<a href=""><i class="fa fa-twitter fa-2"></i></a>
-							<a href=""><i class="fa fa-dribbble fa-2"></i></a>
-							<a href=""><i class="fa fa-github fa-2"></i></a>
-							<a href=""><i class="fa fa-facebook fa-2"></i></a>
-						</p>
-					</div>
-				</div>
-
-				<div class="col-md-6 widget">
-					<h3 class="widget-title">Information</h3>
-					<div class="widget-body">
-						<p>Application de notation semestriel & annuel. Cette plateforme permet aux étudiants de faire
-							un retour sur les cours qu'ils ont suivi durant le semestre ou l'année écoulée.</p>
-						<p>Les enseignants et intervenant peuvent ainsi visualiser les points appréciés et ceux à
-							améliorer pour l'année suivante.</p>
-					</div>
-				</div>
-
-			</div> <!-- /row of widgets -->
-		</div>
-	</div>
-
-	<div class="footer2">
-		<div class="container">
-			<div class="row">
-
-				<div class="col-md-6 widget">
-					<div class="widget-body">
-						<p class="simplenav">
-							<a href="#">Home</a> |
-							<a href="about.html">About</a> |
-							<a href="sidebar-right.html">Sidebar</a> |
-							<a href="contact.html">Contact</a> |
-							<b><a href="signup.html">Sign up</a></b>
-						</p>
-					</div>
-				</div>
-
-				<div class="col-md-6 widget">
-					<div class="widget-body">
-						<p class="text-right">
-							Copyright &copy; 2020, Adrien Bègue - Valentin Bonnal - Lucas Constant - Rémi Siracusa
-						</p>
-					</div>
-				</div>
-
-			</div> <!-- /row of widgets -->
-		</div>
-	</div>
+</div>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script src="/../assets/js/headroom.min.js"></script>
+	<script src="/../assets/js/jQuery.headroom.min.js"></script>
+	<script src="/../assets/js/template.js"></script>
 </footer>
-
-<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
-<script src="/webjars/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="assets/js/headroom.min.js"></script>
-<script src="assets/js/jQuery.headroom.min.js"></script>
-<script src="assets/js/template.js"></script>
 </body>
 </html>
