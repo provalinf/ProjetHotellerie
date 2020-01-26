@@ -12,17 +12,17 @@ public class EvalManagement implements IEvalManagement {
     @Autowired private EvalRepository repository;
 
     @Override
-    public Evaluation getEvaluation(long id) { return repository.findOne(id); }
-
-    @Override
     public void saveEvaluation(Evaluation eval) { repository.save(eval); }
 
     @Override
-    public boolean deleteEvaluation(long id) {
-        if (repository.exists(id)) {
+    public void deleteEvaluation(long id) {
+        if (repository.exists(id))
             repository.delete(id);
-            return true;
-        }
-        return false;
     }
+
+    @Override
+    public Evaluation getEvaluation(long id) { return repository.findOne(id); }
+
+    @Override
+    public Iterable<Evaluation> getAllEvaluations() { return repository.findAll(); }
 }

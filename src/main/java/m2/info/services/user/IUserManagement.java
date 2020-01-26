@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface IUserManagement extends UserDetailsService {
 
     void saveUser(User User);
-    boolean deleteUser(String id);
+    void deleteUser(String id);
     User getUser(String id);
     Iterable<User> getAllUsers();
 

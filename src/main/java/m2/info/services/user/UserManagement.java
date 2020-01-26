@@ -28,12 +28,9 @@ public class UserManagement implements IUserManagement {
     public void saveUser(User user) { userRepository.save(user); }
 
     @Override
-    public boolean deleteUser(String id) {
-        if (userRepository.exists(id)) {
+    public void deleteUser(String id) {
+        if (userRepository.exists(id))
             userRepository.delete(id);
-            return true;
-        }
-        return false;
     }
 
     @Override

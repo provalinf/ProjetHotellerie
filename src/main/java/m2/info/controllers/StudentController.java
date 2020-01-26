@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Iterator;
 import java.util.Set;
 
 @Controller
 @RequestMapping("/student")
 public class StudentController extends UserController {
 
-    @GetMapping("")
+    @GetMapping("/")
     public String home(HttpServletRequest request, Model model) {
         String id = getIdUser(request);
         Student student = userManager.getStudent(id);
@@ -41,8 +42,23 @@ public class StudentController extends UserController {
 
         Student student = userManager.getStudent(getIdUser(request));
         Module module = moduleManager.getModule(moduleId);
-        Evaluation eval = new Evaluation(consistency, documentation, lecture, personalInterest, practicalWork, tutorial, workload, comment, student, module);
-        evalManager.saveEvaluation(eval);
+
+        Iterable <Evaluation> evals = evalManager.getAllEvaluations();
+        boolean alreadyEvaluated = false;
+
+        Iterator<Evaluation> iterator = evals.iterator();
+        Evaluation eval;
+
+        while (iterator.hasNext() && !alreadyEvaluated) {
+            eval = iterator.next();
+            if (eval.getModule().getId() == moduleId && eval.getAuthor().getId().equals(student.getId()))
+                alreadyEvaluated = true;
+        }
+
+        if (!alreadyEvaluated) {
+            eval = new Evaluation(consistency, documentation, lecture, personalInterest, practicalWork, tutorial, workload, comment, student, module);
+            evalManager.saveEvaluation(eval);
+        }
 
         return home(request, model);
     }
@@ -65,23 +81,23 @@ public class StudentController extends UserController {
                                     @RequestParam(value="tutorial") short tutorial,
                                     @RequestParam(value="workload") short workload,
                                     @RequestParam(value="comment") String comment) {
-        Evaluation oldEval = evalManager.getEvaluation(evalId);
-        oldEval.setConsistency(consistency);
-        oldEval.setDocumentation(documentation);
-        oldEval.setLecture(lecture);
-        oldEval.setPersonalInterest(personalInterest);
-        oldEval.setPracticalWork(practicalWork);
-        oldEval.setTutorial(tutorial);
-        oldEval.setWorkload(workload);
-        oldEval.setComment(comment);
-        evalManager.saveEvaluation(oldEval);
-        return new RedirectView("/student");
+        Evaluation eval = evalManager.getEvaluation(evalId);
+        eval.setConsistency(consistency);
+        eval.setDocumentation(documentation);
+        eval.setLecture(lecture);
+        eval.setPersonalInterest(personalInterest);
+        eval.setPracticalWork(practicalWork);
+        eval.setTutorial(tutorial);
+        eval.setWorkload(workload);
+        eval.setComment(comment);
+        evalManager.saveEvaluation(eval);
+        return new RedirectView("/student/");
     }
 
     @GetMapping("evaluation/{evalId}/delete")
     public RedirectView deleteEval(Model model, @PathVariable long evalId) {
         evalManager.deleteEvaluation(evalId);
-        return new RedirectView("/student");
+        return new RedirectView("/student/");
     }
 
     private Set<Module> getNonEvaluatedModules(Student student) {
