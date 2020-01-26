@@ -15,7 +15,7 @@
 <div class="container">
 
 	<ol class="breadcrumb">
-		<li><a href="/admin/">Home</a></li>
+		<li><a href="/admin/">Accueil</a></li>
 		<li class="active">Modules</li>
 	</ol>
 
@@ -69,7 +69,11 @@
 									<td><a th:text="*{verboseName}" th:href="@{/admin/module/} + *{id}"></a></td>
 									<td th:text="*{label}"></td>
 									<td th:text="*{description}"></td>
-									<td><a th:href="@{/admin/module/} + *{id} + '/delete'"><i class="fa fa-trash-o"></i></a></td>
+									<td>
+										<a th:href="@{/admin/module/} + *{id} + '/delete'" title="Supprimer le module">
+											<i class="fa fa-trash-o"></i>
+										</a>
+									</td>
 								</tr>
 								</tbody>
 							</table>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.thymeleaf.org ">
 <div th:object="${user}">
-	<head th:replace="/frags/includes::head(*{firstname}+' - '+*{lastname})"></head>
+	<head th:replace="/frags/includes::head(*{firstname} + ' ' + *{lastname})"></head>
 </div>
 
 <body>
@@ -14,11 +14,10 @@
 <div class="container">
 
 	<ol class="breadcrumb">
-		<li><a href="/admin/">Home</a></li>
-		<li><a href="/admin/users/">Utilisateur</a></li>
-		<li class="active">Utilisateur (
-			<th:block th:object="${user}" th:text="*{firstname} + ' - ' + *{lastname}"/>
-			)
+		<li><a href="/admin/">Accueil</a></li>
+		<li><a href="/admin/users/">Utilisateurs</a></li>
+		<li class="active">
+			<th:block th:object="${user}" th:text="*{firstname} + ' ' + *{lastname}"/>
 		</li>
 	</ol>
 
@@ -58,7 +57,7 @@
 			<header class="page-header">
 				<h1 class="page-title">Modifier un utilisateur</h1>
 			</header>
-			<p th:object="${user}" th:text="*{firstname} + ' - ' + *{lastname}"></p>
+			<p th:object="${user}" th:text="*{firstname} + ' ' + *{lastname}"></p>
 			<br/>
 			<form th:replace="/frags/form::user-form"></form>
 
@@ -70,7 +69,7 @@
 
 			<div class="widget">
 				<h4>Information</h4>
-				<p>Modifier un nouvel utilisateur en base.</p>
+				<p>Modifier un utilisateur en base.</p>
 			</div>
 			<div class="widget">
 				<h4>Attention</h4>
@@ -85,25 +84,39 @@
 			<div class="jumbotron top-space">
 				<div class="container">
 
-					<div class="row">
-						<div class="col-md-12 col-sm-12 highlight">
-							<div class="h-caption"><h3><i class="fa fa-users fa-5"></i>
-								<th:block th:with="text=${user instanceof T(m2.info.models.user.Teacher) ? 'Enseigne' : 'Est inscrit dans'}"
-																								 th:text="${text}"/></h3></div>
-							<div class="h-body text-center" style="font-size: 18px; line-height:1.2">
-								<div th:if="${!linked_modules.isEmpty()}" th:each="module:${linked_modules}" th:object="${module}">
-									<p><a th:href="@{/admin/module/} + *{id}"
-										  th:text="*{label} + ' - ' + *{verboseName}"></a></p>
-								</div>
-								<div th:if="${linked_modules.isEmpty()}"><p style="font-size: 16px">Aucun module</p></div>
-							</div>
+					<div th:if="${linked_modules.isEmpty()}">Aucun module lié à cet utilisateur</div>
+					<div th:if="${!linked_modules.isEmpty()}">
+						<div class="h-caption">
+							<h3>
+								<i class="fa fa-users fa-5"></i>
+								<th:block th:with="text=${user instanceof T(m2.info.models.user.Teacher) ? 'Enseigne' : 'Est inscrit dans'}" th:text="${text}"/>
+							</h3>
+						</div>
+						<br/>
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered">
+								<thead>
+								<tr>
+									<th class="text-center">Module</th>
+									<th class="text-center">Action</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr th:each="module:${linked_modules}" th:object="${module}">
+									<td><a th:href="@{/admin/module/} + *{id}" th:text="*{label} + ' - ' + *{verboseName}"></a></td>
+									<td>
+										<a th:href="@{/admin/user/} + ${user.id} + '/unlink/' + *{id}" title="Supprimer le lien à ce module">
+											<i class="fa fa-trash-o"></i>
+										</a>
+									</td>
+								</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
-					<br/>
 				</div>
 			</div>
 		</article>
-
 	</div>
 </div>    <!-- /container -->
 

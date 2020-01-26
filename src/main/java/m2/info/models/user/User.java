@@ -111,6 +111,7 @@ public abstract class User implements UserDetails {
     public void setFirstname(String firstname) { this.firstname = firstname; }
 
     public void addModule(Module module) { modules.add(module); }
+    public void deleteModule(Module module) { modules.remove(module); }
     public Set<Module> getModules() { return modules; }
     public void setModules(Set<Module> modules) { this.modules = modules; }
 }

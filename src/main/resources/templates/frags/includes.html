@@ -16,13 +16,13 @@
 	<div class="container">
 		<div class="navbar-header">
 			<!-- Button for smallest screens -->
-			<a class="navbar-brand" href="index.html"><p style="margin: 10px 0 0;">Application de notation</p></a>
+			<a class="navbar-brand" th:href="'/' + ${usertype} + '/'"><p style="margin: 10px 0 0;">Application de notation</p></a>
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav pull-right">
-				<th:block th:if="${usertype == 'admin'}" th:include="/frags/nav::admin-header"></th:block>
-				<th:block th:if="${usertype == 'student'}" th:include="/frags/nav::student-header"></th:block>
-				<th:block th:if="${usertype == 'teacher'}" th:include="/frags/nav::teacher-header"></th:block>
+				<th:block th:if="${usertype == 'admin'}" th:include="/frags/nav::admin-nav"/>
+				<th:block th:if="${usertype == 'student'}" th:include="/frags/nav::student-nav"/>
+				<th:block th:if="${usertype == 'teacher'}" th:include="/frags/nav::teacher-nav"/>
 				<!--<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
 					<ul class="dropdown-menu">

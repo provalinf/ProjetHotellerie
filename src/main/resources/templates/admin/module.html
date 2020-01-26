@@ -14,11 +14,10 @@
 <div class="container">
 
 	<ol class="breadcrumb">
-		<li><a href="/admin/">Home</a></li>
+		<li><a href="/admin/">Accueil</a></li>
 		<li><a href="/admin/modules/">Modules</a></li>
-		<li class="active">Module (
+		<li class="active">
 			<th:block th:object="${module}" th:text="*{label} + ' - ' + *{verboseName}"/>
-			)
 		</li>
 	</ol>
 

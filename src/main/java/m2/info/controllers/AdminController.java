@@ -83,6 +83,15 @@ public class AdminController {
         return displayUsers(model);
     }
 
+    @GetMapping("user/{userId}/unlink/{moduleId}")
+    public RedirectView deleteLink(Model model, @PathVariable String userId, @PathVariable long moduleId) {
+        User user = userManager.getUser(userId);
+        Module module = moduleManager.getModule(moduleId);
+        user.deleteModule(module);
+        userManager.saveUser(user);
+        return new RedirectView("/admin/user/" + userId);
+    }
+
     @GetMapping("users")
     public String displayUsers(Model model) {
         model.addAttribute("users", userManager.getAllUsers());
