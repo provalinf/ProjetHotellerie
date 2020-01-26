@@ -1,38 +1,78 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
-<head lang="fr">
-    <title th:object="${module}" th:text="*{label} + ' - ' + *{verboseName}"></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>
+<div th:object="${module}">
+	<head th:replace="/frags/includes::head(*{label}+' - '+*{verboseName})"></head>
+</div>
+
 <body>
-<header th:replace="/frags/header::teacher-header"></header>
-<hr/>
-<table>
-    <caption>Evaluations</caption>
-    <thead>
-    <tr>
-        <th>Cohérence CM/TD/TP</th>
-        <th>Documentation</th>
-        <th>Cours Magistraux</th>
-        <th>Intêret Personnel</th>
-        <th>Travaux Pratiques</th>
-        <th>Charge de travail</th>
-        <th>Commentaire</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="eval: ${evals}" th:object="${eval}">
-        <td th:text="*{consistency}"></td>
-        <td th:text="*{documentation}"></td>
-        <td th:text="*{lecture}"></td>
-        <td th:text="*{personalInterest}"></td>
-        <td th:text="*{practicalWork}"></td>
-        <td th:text="*{tutorial}"></td>
-        <td th:text="*{workload}"></td>
-        <td th:text="*{comment}"></td>
-    </tr>
-    </tbody>
-</table>
-<hr/>
+<div th:replace="/frags/includes::navbar(${'teacher'})"></div>
+<header id="head" class="secondary"></header>
+
+
+<!-- container -->
+<div class="container">
+
+	<ol class="breadcrumb">
+		<li><a href="/teacher/">Évaluations</a></li>
+		<li class="active">
+			<th:block th:object="${module}" th:text="*{label} + ' - ' + *{verboseName}"/>
+		</li>
+	</ol>
+
+	<div class="row">
+		<aside class="col-sm-12 sidebar sidebar-right">
+
+			<div class="widget">
+				<h4>Information</h4>
+				<p>Vous pouvez sur cette page, consulter les détails des évaluations que vous avez reçu pour ce module.<br/><br/>
+					Les notes vont de 1 pour passable à 5 pour très satisfait.</p>
+			</div>
+
+		</aside>
+		<!-- /Sidebar -->
+	</div>
+</div>    <!-- /container -->
+
+
+<div class="jumbotron">
+	<div class="container text-center">
+
+		<div th:if="${evals.isEmpty()}">Aucune évaluation pour ce module</div>
+		<div th:if="${!evals.isEmpty()}">
+			<h3 class="text-center thin">Évaluations disponibles</h3>
+			<br/>
+			<div class="table-responsive">
+				<table class="table table-striped table-bordered">
+					<thead>
+					<tr>
+						<th class="text-center">Cohérence CM/TD/TP</th>
+						<th class="text-center">Documentation</th>
+						<th class="text-center">Cours Magistraux</th>
+						<th class="text-center">Intêret Personnel</th>
+						<th class="text-center">Travaux Pratiques</th>
+						<th class="text-center">Travaux Dirigés</th>
+						<th class="text-center">Charge de travail</th>
+						<th class="text-center">Commentaire</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr class="something" th:each="eval: ${evals}" th:object="${eval}">
+						<td class="col-md-1" th:text="*{consistency}"></td>
+						<td class="col-md-1" th:text="*{documentation}"></td>
+						<td class="col-md-1" th:text="*{lecture}"></td>
+						<td class="col-md-1" th:text="*{personalInterest}"></td>
+						<td class="col-md-1" th:text="*{practicalWork}"></td>
+						<td class="col-md-1" th:text="*{tutorial}"></td>
+						<td class="col-md-1" th:text="*{workload}"></td>
+						<td class="col-md-4" th:text="*{comment}"></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer th:replace="/frags/includes::foot"></footer>
 </body>
 </html>

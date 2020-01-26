@@ -1,25 +1,49 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
-<head lang="fr">
-    <title th:object="${teacher}" th:text="*{firstname} + ' ' + *{lastname}"></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>
+<div th:object="${teacher}">
+	<head th:replace="/frags/includes::head(*{firstname}+' - '+*{lastname})"></head>
+</div>
+
 <body>
-<header th:replace="/frags/header::teacher-header"></header>
-<table>
-    <caption>Modules enseignés</caption>
-    <thead>
-    <tr>
-        <th>Module</th>
-        <th>Nombre d'évaluations</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="module:${modules}" th:object="${module}">
-        <td><a th:text="*{label} + ' - ' + *{verboseName}" th:href="@{evaluations/} + *{id}"></a></td>
-        <td th:text="${#arrays.length(module.evaluations)}"></td>
-    </tr>
-    </tbody>
-</table>
+<div th:replace="/frags/includes::navbar(${'teacher'})"></div>
+<header id="head">
+	<div class="container">
+		<div class="row">
+			<h1 class="lead">Consulter vos évaluations</h1>
+			<p class="tagline">Vous êtes connectés en tant qu'enseignant, vous pouvez consulter les notes et évaluations qu'on donnés les étudiants participants à vos cours.</p>
+		</div>
+	</div>
+</header>
+
+<div class="jumbotron">
+	<div class="container text-center">
+
+		<div th:if="${modules.isEmpty()}">Aucun module enseigné</div>
+		<div th:if="${!modules.isEmpty()}">
+			<h3 class="text-center thin">Modules enseignés</h3>
+			<br/>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<th class="text-center">Module</th>
+						<th class="text-center">Nombre d'évaluations</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:each="module:${modules}" th:object="${module}">
+						<td><a th:text="*{label} + ' - ' + *{verboseName}" th:href="@{evaluations/} + *{id}"></a></td>
+						<td th:if="${#arrays.length(module.evaluations)} != 0" th:text="${#arrays.length(module.evaluations)}"></td>
+						<td th:if="${#arrays.length(module.evaluations)} == 0" th:text="${'Aucune évaluation'}"></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<footer th:replace="/frags/includes::foot"></footer>
 </body>
 </html>
