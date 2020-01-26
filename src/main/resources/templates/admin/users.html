@@ -1,12 +1,88 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
-<head lang="fr">
-    <title>Panneau utilisateur</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>
+<head th:replace="/frags/includes::head(${'Panneau utilisateur'})"></head>
 <body>
-<header th:replace="/frags/header::admin-header"></header>
-<h1>Ajouter un nouvel utilisateur</h1>
+<div th:replace="/frags/includes::navbar(${'admin'})"></div>
+<header id="head" class="secondary"></header>
+
+
+<!-- container -->
+<div class="container">
+
+	<ol class="breadcrumb">
+		<li><a href="/admin/">Home</a></li>
+		<li class="active">Utilisateurs</li>
+	</ol>
+
+	<div class="row">
+
+		<!-- Article main content -->
+		<article class="col-sm-9 maincontent">
+
+			<header class="page-header">
+				<h1 class="page-title">Ajouter un nouvel utilisateur</h1>
+			</header>
+
+			<br/>
+			<form th:replace="/frags/form::user-form"></form>
+
+		</article>
+		<!-- /Article -->
+
+		<!-- Sidebar -->
+		<aside class="col-sm-3 sidebar sidebar-right">
+
+			<div class="widget">
+				<h4>Information</h4>
+				<p>Créer et ajouter un nouvel utilisateur en base. <br/> Cet utilisateur en fonction de son type (Étudiant, Enseignant) pourra par la suite accéder aux dépôts d'avis et notes.</p>
+			</div>
+
+		</aside>
+		<!-- /Sidebar -->
+
+		<article class="col-xs-12 maincontent">
+			<div class="jumbotron top-space">
+				<div class="container">
+
+					<div th:if="${users.isEmpty()}">Aucun utilisateur enregistré</div>
+					<div th:if="${!users.isEmpty()}">
+						<h3 class="text-center thin">Utilisateurs enregistrés</h3>
+						<br/>
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered">
+								<thead>
+								<tr>
+									<th class="text-center">Identifiant national</th>
+									<th class="text-center">Nom</th>
+									<th class="text-center">Prénom</th>
+									<th class="text-center">Identifiant</th>
+									<th class="text-center">Rôle</th>
+									<th class="text-center">Action</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr th:each="user: ${users}" th:object="${user}">
+									<td><a th:text="*{id}" th:href="@{/admin/user/} + *{id}"></a></td>
+									<td th:text="*{lastname}"></td>
+									<td th:text="*{firstname}"></td>
+									<td th:text="*{username}"></td>
+									<td th:with="role=${user instanceof T(m2.info.models.user.Teacher) ? 'Enseignant' : 'Étudiant'}" th:text="${role}"></td>
+									<td><a th:href="@{/admin/user/} + *{id} + '/delete'"><i class="fa fa-trash-o"></i></a></td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
+	</div>
+</div>    <!-- /container -->
+
+
+<footer th:replace="/frags/includes::foot"></footer>
+
+<!--<h1>Ajouter un nouvel utilisateur</h1>
 <form th:replace="/frags/form::user-form"></form>
 <hr/>
 <table>
@@ -32,6 +108,6 @@
     </tr>
     </tbody>
 </table>
-<hr/>
+<hr/>-->
 </body>
 </html>
