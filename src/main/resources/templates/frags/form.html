@@ -14,7 +14,7 @@
 		</div>
 		<div class="col-sm-6">
 			<input class="form-control" type="text" id="verboseName" name="verboseName" required="required"
-				   th:value="${module?.verboseName}" maxlength="32"
+				   th:value="${module?.verboseName}" maxlength="128"
 				   pattern="[A-Za-z0-9àéèêë]( ?[A-Za-z0-9àéèêë])+"
 				   title="2 caractères min., alphanumériques éventuellement séparés par un espace" placeholder="Nom"/>
 		</div>

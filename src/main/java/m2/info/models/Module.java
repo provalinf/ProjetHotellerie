@@ -16,7 +16,7 @@ public class Module {
     @Id private long id;
 
     @NotNull
-    @Column(name = "verbose_name", nullable = false, length = 32)
+    @Column(name = "verbose_name", nullable = false, length = 128)
     private String verboseName;
 
     @NotNull
